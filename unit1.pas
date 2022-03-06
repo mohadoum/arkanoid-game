@@ -20,12 +20,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Edit1: TEdit;
-    Image1: TImage;
-    Image2: TImage;
-    Image3: TImage;
-    Image4: TImage;
-    Image5: TImage;
+    EditSurname: TEdit;
     LabelLevel: TLabel;
     Label10: TLabel;
     Label11: TLabel;
@@ -65,7 +60,7 @@ type
     Label9: TLabel;
     Labelscore2: TLabel;
     Labelscore3: TLabel;
-    Panel1: TPanel;
+    PanelMenu: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
@@ -223,7 +218,7 @@ type
     Timer8: TTimer;
     Timer9: TTimer;
     procedure Button1Click(Sender: TObject);
-    procedure Edit1Change(Sender: TObject);
+    procedure EditSurnameChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Image5Click(Sender: TObject);
@@ -253,7 +248,7 @@ type
     procedure Label8Click(Sender: TObject);
     procedure Label93Click(Sender: TObject);
     procedure Labelscore3Click(Sender: TObject);
-    procedure Panel1Click(Sender: TObject);
+    procedure PanelMenuClick(Sender: TObject);
     procedure Panel2Click(Sender: TObject);
     procedure Panel3Click(Sender: TObject);
     procedure Panel4Click(Sender: TObject);
@@ -312,7 +307,9 @@ type
     procedure IncreaseScore();
     procedure TakeOneLife();
     procedure ShowScore();
-    procedure WaitAndShowScore();
+    procedure WaitAndDo(delay: integer; procPtr: TProcedurePointer);
+    Procedure Reinitializing();
+    procedure TopMoveGamePanelTo(t: integer);
     function LeftTranslation(labeel: TLabel; startPoint: integer; endPoint: integer; duration: integer): integer;
 
   private
@@ -323,9 +320,9 @@ type
 
 var
   Form1: TForm1;
-  up, right, limit_right, limit_left, playingPart, bonuslong, bonusvie,
+  up, right, limit_right, limit_left, zKeyBlocked, bonuslong, bonusvie,
   growsize, stop: boolean;
-  playoops, bonusthor, activebonusthor, stopbonusthor, LeftTranslated, FallingBallSoundPlayed, FallingBallEventOccured: boolean;
+  playoops, bonusthor, activebonusthor, stopbonusthor, LeftTranslated, FallingBallSoundPlayed, FallingBallEventOccured, GameOverOccured: boolean;
   aProcedureIsWaiting : boolean;
 
   filePath: string;
@@ -354,6 +351,8 @@ var
 
   array10Labels: array[0..9] of TLabel;
   iterator, iteratorTimer12, LTGameOverLabelIndex, iteratorTimer13 : integer;
+
+  totalBricks : array[1..5] of integer;
 
   //LT stands for Left Translation
   array10LTStartPoint, array10LTEndPoint, array10LTDuration, array10LTStep : array[0..9] of integer;
@@ -390,6 +389,8 @@ const
   SOUND_NOT_MUCH_TIME_LEFT = 'NotMuchTimeLeft.wav';
   MAX_LEFT = 1500; MAX_TOP = 1000;
   LEFT_TRANSLATION_STEP_DURATION = 100;
+  BARRE_ALTITUDE = 100;
+  MARGIN_TOP = 20; MARGIN = 20;
 
 
 {$IFNDEF WINDOWS}
@@ -604,11 +605,14 @@ begin
   begin
        for iterator := 1 to 6 do
       begin
-          tabLabel[k][iterator].Width := 10;
           tabLabel[k][iterator].AutoSize := True;
       end;
   end;
 
+  for k := 1 to NUMBER_OF_GAME_PANELS do
+  begin
+    tabPanel[k].Top := MAX_TOP;
+  end;
 
   for k := 1 to NUMBER_OF_GAME_PANELS do
   begin
@@ -622,60 +626,86 @@ begin
   end;
 
 
-  //panel2
-  //ball
-  tabPositions[1][1][1] := 640; //left
-  tabPositions[1][1][2] := 632; //top
-  //barre
-  tabPositions[1][2][1] := 562; //left
-  tabPositions[1][2][2] := 656; //top
-  //panel3
-  //ball
-  tabPositions[2][1][1] := 680; //left
-  tabPositions[2][1][2] := 624; //top
-  //barre
-  tabPositions[2][2][1] := 592; //left
-  tabPositions[2][2][2] := 648; //top
-  //panel4
-  //ball
-  tabPositions[3][1][1] := 664; //left
-  tabPositions[3][1][2] := 632; //top
-  //barre
-  tabPositions[3][2][1] := 584; //left
-  tabPositions[3][2][2] := 656; //top
-  //panel5
-  //ball
-  tabPositions[4][1][1] := 648; //left
-  tabPositions[4][1][2] := 624; //top
-  //barre
-  tabPositions[4][2][1] := 560; //left
-  tabPositions[4][2][2] := 648; //top
-  //panel6
-  //ball
-  tabPositions[5][1][1] := 645; //left
-  tabPositions[5][1][2] := 632; //top
-  //barre
-  tabPositions[5][2][1] := 560; //left
-  tabPositions[5][2][2] := 655; //top
+  //set panelMenu positions
+  PanelMenu.Top := (Form1.Height div 2) - (PanelMenu.Height div 2);
+  PanelMenu.Left := (Form1.Width div 2) - (PanelMenu.Width div 2);
 
+  //defining totalBricks array which contains bricks number of each panel
+  totalBricks[1] := 20; totalBricks[2] := 20; totalBricks[3] := 20; totalBricks[4] := 20; totalBricks[5] := 42;
 
+  //timers
+  Timer1.Enabled := FALSE;
+  Timer2.Enabled := FALSE;
+  Timer3.Enabled := FALSE;
+  Timer11.Enabled := FALSE;
+  Timer12.Enabled := FALSE;
+  Timer13.Enabled := FALSE;
 
-
-
-  //Initializing Array10Labels Array
-  for iterator := 0 to 9 do
+  //bars & balls initial positions
+  for iterator := 1 to NUMBER_OF_GAME_PANELS do
   begin
-    array10Labels[iterator] := nil;
+    tabBarre[iterator].Left := tabPanel[iterator].Left + (tabPanel[iterator].width div 2) - (tabBarre[iterator].width div 2);
+    tabBall[iterator].Left := tabPanel[iterator].Left + (tabPanel[iterator].Width div 2) - (tabBall[iterator].width div 2);
+    tabBarre[iterator].Top := tabPanel[iterator].Top + (tabPanel[iterator].Height) - tabBarre[iterator].Height - BARRE_ALTITUDE;
+    //Depending of the barre's Top
+    tabBall[iterator].Top := tabBarre[iterator].Top - tabBall[iterator].Height;
   end;
 
-  Timer12.Interval := LEFT_TRANSLATION_STEP_DURATION;
+  //Labels contents
+  for iterator := 1 to NUMBER_OF_GAME_PANELS do
+  begin
+    tabLabel[iterator][1].Caption := ''; tabLabel[iterator][2].Caption := ''; tabLabel[iterator][5].Caption := ''; tabLabel[iterator][6].Caption := '';
+    tabLabel[iterator][3].Caption := 'SCORE: 0';
+    tabLabel[iterator][4].Caption := 'LIFE: 2';
+    tabLabel[iterator][5].Caption := 'Press Z to start';
+  end;
 
-  //Initializing Arrays For Chrono And ProcedurePointer
+  //Score and life labels static positions. As well as shapeLimits & ...
+  for iterator := 1 to NUMBER_OF_GAME_PANELS do
+  begin
+    tabLabel[iterator][3].Caption := 'SCORE: 0';
+    tabLabel[iterator][4].Caption := 'LIFE: 2';
+
+    //DEPENDANT TOP ORDER
+    tabLabel[iterator][3].Top := tabPanel[iterator].Top + MARGIN_TOP;
+    tabLabel[iterator][4].Top := tabLabel[iterator][3].Top + tabLabel[iterator][3].Height + MARGIN_TOP;
+
+    tabLimit[iterator].Top := tabLabel[iterator][4].Top + tabLabel[iterator][4].Height + (2*MARGIN_TOP);
+
+    tabLabel[iterator][5].Top := ((tabPanel[iterator].Top + tabLimit[iterator].Top) div 2) - (tabLabel[iterator][5].Height div 2) - MAX_TOP;
+    //Left
+    tabLimit[iterator].Left := tabPanel[iterator].Left;
+    tabLimit[iterator].Width := tabPanel[iterator].Width;
+    tabLimit[iterator].Height := MARGIN_TOP;
+
+    tabLabel[iterator][3].Left := tabPanel[iterator].Left + tabPanel[iterator].Width - tabLabel[iterator][3].width - (3*MARGIN);
+    tabLabel[iterator][4].Left := tabLabel[iterator][3].Left;
+
+    tabLabel[iterator][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
+
+  end;
+
+
+  //init all Array10 Object's Arrays
   for iterator := 0 to 9 do
   begin
-    array10Chrono[iterator] := -1;
+    array10Labels[iterator]:= nil;
     array10ProcedurePointers[iterator] := nil;
   end;
+
+
+  //meta variables
+  zKeyBlocked := False;
+  EditSurname.Text := '';
+  Timer12.Interval := LEFT_TRANSLATION_STEP_DURATION;
+
+
+  //variables changing after Z key pressed
+  score := 0;
+  comptvie := 2;
+
+
+
 
 
 
@@ -692,11 +722,6 @@ begin
   limit_left := False;
   limit_right := False;
   growsize := True;
-  label9.Left := 270;
-  label93.Left := 270;
-  label94.Left := 270;
-  label95.Left := 270;
-  label96.Left := 270;
   al := 0;
   av := 0;
   a := 15;
@@ -704,18 +729,12 @@ begin
   compt := 0;
   j := 0;
   jv := 0;
-  LabelVie1.Caption := '0';
-  LabelVie2.Caption := '0';
-  labelVie3.Caption := '0';
-  LabelVie4.Caption := '0';
-  LabelVie5.Caption := '0';
   bonuslong := False;
   bonusvie := False;
 
 
-  playingPart := False;
-  score := 0;
-  comptvie := 2;
+
+
 
 end;
 
@@ -724,7 +743,7 @@ begin
 
 end;
 
-procedure TForm1.Edit1Change(Sender: TObject);
+procedure TForm1.EditSurnameChange(Sender: TObject);
 begin
 
 end;
@@ -769,9 +788,9 @@ begin
   else
   if (key = 'z') OR (key = 'Z') then //want to start game
   begin
-    if playingPart = False then
+    if zKeyBlocked = False then
     begin
-      playingPart := True;
+      zKeyBlocked := True;
 
       ball := tabBall[k];
       bar := tabBarre[k];
@@ -786,18 +805,12 @@ begin
       //label vie
       TakeOneLife();
 
-
-      //label score
-      IncreaseScore();
-
       //activer les timers
       timer1.Enabled := True;   //on fait tourner la balle sans considérer les briques
       timer3.Enabled := True;   //on fait tourner la balle en considérant uniquement les briques
       timer2.Enabled:= True; //Gère tout ce qui est relatif à la chute du ball au sol
       timer11.Enabled := True;  //on fait mouvoir la balle
 
-      // c := 0;
-     // timer7.interval := 10;
     end;
   end;
 
@@ -825,56 +838,11 @@ end;
 
 procedure TForm1.LabelMenuClick(Sender: TObject);
 begin
-  // Reinit all variables eventually touched in the precedent game
-  timer1.Enabled := False;
-  timer2.Enabled := True;
-  timer3.Enabled := False;
-  timer4.Enabled := True;
-  timer5.Enabled := True;
-  timer7.Enabled := False;
-  timer6.Enabled := True;
-  timer8.Enabled := True;
-  timer9.Enabled := False;
-  time := 0;
 
-  tabBall[k].left := 640;
-  tabBall[k].top := 632;
-  tabBarre[k].left := 560;
-  tabLabel[k][5].Caption := 'press z to continue';
-  for t := 1 to Length(tabShape[k]) do
-  begin
-    tabShape[k][t].top := tabSave[k][t];
-  end;
-
-  PanelScore.Top := 1000;
-  panel1.Top := 160;
-  bonusthor := False;
-  stopbonusthor := True;
-  dv := 0;
-  timebonusthor := 10;
-  activebonusthor := False;
-  playoops := False;
-  stop := True;
-  t := 0;
-  d := 0;
-  limit_left := False;
-  limit_right := False;
-  playingPart := True;
-  growsize := True;
-  score := 0;
-  tabLabel[k][1].Left := 270;
-  al := 0;
-  av := 0;
-  a := 15;
-  c := 0;
-  compt := 0;
-  j := 0;
-  jv := 0;
-  comptvie := 2;
-  bonuslong := False;
-  bonusvie := False;
-  tabLabel[k][6].Left := 1400;
-  tabLabel[k][6].top := 304;
+  EditSurname.Enabled := TRUE; //To enable again changing Player Name
+  PanelScore.Top := MAX_TOP;
+  PanelMenu.Top := (Form1.Height div 2) - (PanelMenu.Height div 2);
+  PanelMenu.Left := (Form1.Width div 2) - (PanelMenu.Width div 2);
 
 end;
 
@@ -925,7 +893,7 @@ begin
   d := 0;
   limit_left := False;
   limit_right := False;
-  playingPart := True;
+  zKeyBlocked := True;
   growsize := True;
   score := 0;
   tabLabel[k][1].Left := 270;
@@ -951,28 +919,31 @@ end;
 
 procedure TForm1.LabelNormalClick(Sender: TObject);
 begin
-  Edit1.Enabled := False; //For preventing him to catch the FormKeyressEvent
+  EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
+  zKeyBlocked := False;
 
   randomize;
   k := random(NUMBER_OF_GAME_PANELS) + 1;
-  tabpanel[k].left := 0;
-  tabpanel[k].top := 0;
-  panel1.top := 1000;
+
   jumpbal := 1;
   jumpbar := 17;
   longbarre := 150;
   tabBarre[k].Width := longbarre;
+  tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
+
+  TopMoveGamePanelTo(0); //depend on k
+  PanelMenu.top := 1000;
 end;
 
 procedure TForm1.LabelHardClick(Sender: TObject);
 begin
-  Edit1.Enabled := False; //For preventing him to catch the FormKeyressEvent
+  EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
 
   randomize;
   k := random(NUMBER_OF_GAME_PANELS) + 1;
   tabpanel[k].left := 0;
   tabpanel[k].top := 0;
-  panel1.top := 1000;
+  PanelMenu.top := 1000;
   jumpbal := 10;
   jumpbar := 20;
   longbarre := 100;
@@ -1026,13 +997,13 @@ end;
 
 procedure TForm1.LabelEasyClick(Sender: TObject);
 begin
-  Edit1.Enabled := False; //For preventing him to catch the FormKeyressEvent
+  EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
 
   randomize;
   k := random(NUMBER_OF_GAME_PANELS) + 1;
   tabpanel[k].left := 0;
   tabpanel[k].top := 0;
-  panel1.top := 1000;
+  PanelMenu.top := 1000;
   jumpbal := 5;
   jumpbar := 15;
   longbarre := 193;
@@ -1065,7 +1036,7 @@ begin
 
 end;
 
-procedure TForm1.Panel1Click(Sender: TObject);
+procedure TForm1.PanelMenuClick(Sender: TObject);
 begin
 
 end;
@@ -1249,9 +1220,9 @@ procedure TForm1.Timer10Timer(Sender: TObject);
 begin
   {if nwrite=0 then
   begin
-   if edit1.text<>'' then
+   if EditSurname.text<>'' then
    begin
-   write(fich_noms,edit1.Text);
+   write(fich_noms,EditSurname.Text);
    close(fich_noms);
    end;
   end;}
@@ -1389,12 +1360,14 @@ procedure TForm1.Timer2StartTimer(Sender: TObject);
 begin
      FallingBallSoundPlayed := False;
      FallingBallEventOccured := False;
+     GameOverOccured := False;
 end;
 
 procedure TForm1.Timer2StopTimer(Sender: TObject);
 begin
      FallingBallSoundPlayed := False;
      FallingBallEventOccured := False;
+     GameOverOccured := False;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject); //Gère tout ce qui est relatif à la chute du ball au sol
@@ -1421,6 +1394,8 @@ begin
 
        if(comptvie <= 0) then
        begin
+            GameOverOccured := TRUE;
+
             //Allumer un son Game Over
             PlayRandomedSound(DIRECTORY_NAME_LOSE, NUMBER_OF_SOUND_LOSE, psAsync);
 
@@ -1429,17 +1404,19 @@ begin
             LTGameOverLabelIndex := LeftTranslation(tabLabel[k][6], MAX_LEFT, tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][6].Width div 2), 2000);
 
             //faire-pause-3-secondes ET afficher-Score
-            WaitAndShowScore();
+            WaitAndDo(3, @ShowScore);
 
-            //reinit-game-data
+            //Attendre l'affichage du score POUR réinitialiser
+            WaitAndDo(4, @Reinitializing);
        end
        else
        //(comptvie > 0) recentrer ball and bar positions
        begin
-           tabBarre[k].Top := tabPositions[k][2][2];
-           tabBarre[k].Left := tabPositions[k][2][1];
-           tabBall[k].Top := tabPositions[k][1][2];
-           tabBall[k].Left := tabPositions[k][1][1];
+           tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
+           tabBall[k].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabBall[k].width div 2);
+           tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
+           //Depending of the barre's Top
+           tabBall[k].Top := tabBarre[k].Top - tabBall[k].Height;
            //change label Start content
            tabLabel[k][5].Caption := 'Press Z to continue';
            tabLabel[k][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
@@ -1447,13 +1424,21 @@ begin
      end;
 
      //Désactivation du Timer
-     if (FallingBallEventOccured) then
+     if (FallingBallEventOccured AND not(GameOverOccured)) then
      begin
-        playingPart := FALSE;
+        zKeyBlocked := FALSE;
+        Timer2.Enabled := FALSE;
+        Timer1.Enabled := FALSE;
+        Timer3.Enabled := FALSE;
+     end
+     else
+     if (FallingBallEventOccured AND GameOverOccured) then
+     begin
         Timer2.Enabled := FALSE;
         Timer1.Enabled := FALSE;
         Timer3.Enabled := FALSE;
      end;
+
 end;
 
 procedure TForm1.Timer3Timer(Sender: TObject); //on fait tourner la balle en considérant uniquement les briques
@@ -1534,7 +1519,7 @@ procedure TForm1.Timer4Timer(Sender: TObject);
 begin
 
   tabLabel[k][3].Caption := 'SCORE: ' + IntToStr(score);
-  if playingPart = True then
+  if zKeyBlocked = True then
   begin
     //ball crashed
     if (tabBall[k].top > tabBarre[k].top + 25) and (comptvie = 0) then
@@ -1547,13 +1532,13 @@ begin
   end;
 
   if tabLabel[k][6].left < 500 then
-    playingPart := False;
+    zKeyBlocked := False;
   for i := 1 to Length(tabShape[k]) do
   begin
     if tabShape[k][i].top < 500 then
       compt := compt + 1;
   end;
-  if (compt = 0) and (playingPart = True) then
+  if (compt = 0) and (zKeyBlocked = True) then
   begin
     timer1.Enabled := False;
     timer9.Enabled := True;
@@ -1863,7 +1848,7 @@ end;
 procedure TForm1.IncreaseScore();
 begin
   score := score + 1;
-  tabLabel[k][3].Caption := 'Score: ' + IntToStr(score);
+  tabLabel[k][3].Caption := 'SCORE: ' + IntToStr(score);
 end;
 
 
@@ -1872,7 +1857,7 @@ begin
   if(comptvie > 0) then
   begin
       comptvie := comptvie - 1;
-      tabLabel[k][4].Caption := IntToStr(comptvie);
+      tabLabel[k][4].Caption := 'LIFE: ' + IntToStr(comptvie);
   end;
 end;
 
@@ -1881,31 +1866,101 @@ begin
      tabPanel[k].Top := MAX_TOP;
      LabelFinalScore.Width := 10;
      LabelFinalScore.AutoSize:= TRUE;
-     LabelFinalScore.Caption := 'Score: ' + IntToStr(score) + ' ';
+     if (Length(EditSurname.Text) > 0) then
+        LabelFinalScore.Caption := EditSurname.Text + ', you scored ' + IntToStr(score) + '/' + IntToStr(TotalBricks[k]) + ' '
+     else
+        LabelFinalScore.Caption := 'You scored ' + IntToStr(score) + '/' + IntToStr(TotalBricks[k]) + ' ';
      PanelScore.Left := (Form1.width div 2) - (PanelScore.Width div 2);
      PanelScore.Top := (Form1.Height div 2) - (PanelScore.Height div 2);
 end;
 
 
-procedure TForm1.WaitAndShowScore();
+//faire_pause_N_secondes et executer une chose
+procedure TForm1.WaitAndDo(delay: integer; procPtr: TProcedurePointer);
 var
   iterator : integer;
 begin
-     //faire_pause_3_secondes
+
      iterator := 0;
      while((iterator < 10) AND (array10ProcedurePointers[iterator] <> nil)) do
          iterator := iterator + 1;
      if(iterator > 9) then //nil posiion not found else found
          iterator := 0;
-     array10ProcedurePointers[iterator] := @ShowScore;
+     array10ProcedurePointers[iterator] := procPtr;
      array10Chrono[iterator] := -1;
-     array10DelayNSeconds[iterator] := 3;
+     array10DelayNSeconds[iterator] := delay;
 
      if(not(Timer13.Enabled)) then
          Timer13.Enabled := True;
 
 end;
 
+
+
+//Reinit all touched object and variables after the player started a part (pressing Z);
+Procedure TForm1.Reinitializing();
+begin
+  //timers
+  Timer1.Enabled := FALSE;
+  Timer2.Enabled := FALSE;
+  Timer3.Enabled := FALSE;
+  Timer11.Enabled := FALSE;
+  Timer12.Enabled := FALSE;
+  Timer13.Enabled := FALSE;
+
+  //k bar & ball initial positions
+  tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
+  tabBall[k].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabBall[k].width div 2);
+  tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
+  //Depending of the barre's Top
+  tabBall[k].Top := tabBarre[k].Top - tabBall[k].Height;
+
+
+  //k Labels contents
+  tabLabel[k][1].Caption := ''; tabLabel[k][2].Caption := ''; tabLabel[k][6].Caption := '';
+  tabLabel[k][3].Caption := 'SCORE: 0';
+  tabLabel[k][4].Caption := 'LIFE: 2';
+  tabLabel[k][5].Caption := 'Press Z to start';
+
+  //k Labels moved repositionning
+  tabLabel[k][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
+
+  //Panel k bricks's Top must be reorganized to their initial position
+  for iterator := 1 to Length(tabSave[k]) do
+  begin
+    tabShape[k][iterator].Top := tabSave[k][iterator];
+  end;
+
+  //Reinit all Array10 Object's Arrays
+  for iterator := 0 to 9 do
+  begin
+    array10Labels[iterator]:= nil;
+    array10ProcedurePointers[iterator] := nil;
+  end;
+
+  //variables changing after Z key pressed
+  score := 0;
+  comptvie := 2;
+  //Another variables to add?
+
+end;
+
+
+//Moving GamePanel with some of his objects
+procedure TForm1.TopMoveGamePanelTo(t: integer);
+begin
+  tabPanel[k].Top := t;
+
+  tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
+  //Depending of the barre's Top
+  tabBall[k].Top := tabBarre[k].Top - tabBall[k].Height;
+
+  //DEPENDANT TOP ORDER
+  tabLabel[k][3].Top := tabPanel[k].Top + MARGIN_TOP;
+  tabLabel[k][4].Top := tabLabel[k][3].Top + tabLabel[k][3].Height + MARGIN_TOP;
+  tabLimit[k].Top := tabLabel[k][4].Top + tabLabel[k][4].Height + (2*MARGIN_TOP)
+
+end;
 
 //Réalise les translations vers la gauche des labels à l'aide du Timer12
 function TForm1.LeftTranslation(labeel: TLabel; startPoint: integer; endPoint: integer; duration: integer): integer;

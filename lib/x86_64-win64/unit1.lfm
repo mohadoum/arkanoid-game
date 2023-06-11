@@ -1,0 +1,1575 @@
+object Form1: TForm1
+  Left = 319
+  Height = 865
+  Top = 25
+  Width = 1295
+  BorderStyle = bsSizeToolWin
+  Caption = 'Form1'
+  ClientHeight = 865
+  ClientWidth = 1295
+  Color = clWhite
+  DesignTimePPI = 120
+  Font.Height = -39
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  Position = poScreenCenter
+  LCLVersion = '2.2.6.0'
+  Scaled = False
+  object Panel2: TPanel
+    Left = 0
+    Height = 865
+    Top = 1250
+    Width = 1296
+    ClientHeight = 865
+    ClientWidth = 1296
+    TabOrder = 0
+    OnClick = Panel2Click
+    object Shape1: TShape
+      Left = 762
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape1ChangeBounds
+    end
+    object Shape2: TShape
+      Left = 442
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape3: TShape
+      Left = 362
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape3ChangeBounds
+    end
+    object Shape4: TShape
+      Left = 362
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape4ChangeBounds
+    end
+    object Shape5: TShape
+      Left = 762
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape5ChangeBounds
+    end
+    object Shape6: TShape
+      Left = 522
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape7: TShape
+      Left = 842
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape7ChangeBounds
+    end
+    object Shape8: TShape
+      Left = 522
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape9: TShape
+      Left = 842
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape9ChangeBounds
+    end
+    object Shape10: TShape
+      Left = 682
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape11: TShape
+      Left = 602
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clRed
+    end
+    object Shape13: TShape
+      Left = 762
+      Height = 41
+      Top = 344
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape14: TShape
+      Left = 442
+      Height = 41
+      Top = 344
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape14ChangeBounds
+    end
+    object Shape15: TShape
+      Left = 602
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape15ChangeBounds
+    end
+    object Shape16: TShape
+      Left = 522
+      Height = 41
+      Top = 344
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape17: TShape
+      Left = 682
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape17ChangeBounds
+    end
+    object Shape18: TShape
+      Left = 280
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape18ChangeBounds
+    end
+    object Shape19: TShape
+      Left = 922
+      Height = 41
+      Top = 264
+      Width = 81
+      Brush.Color = clGreen
+    end
+    object Shape20: TShape
+      Left = 682
+      Height = 41
+      Top = 344
+      Width = 81
+      Brush.Color = clGreen
+      OnChangeBounds = Shape20ChangeBounds
+    end
+    object Shape12: TShape
+      Left = 442
+      Height = 41
+      Top = 304
+      Width = 81
+      Brush.Color = clYellow
+      OnChangeBounds = Shape12ChangeBounds
+    end
+    object LabelStart1: TLabel
+      Left = 412
+      Height = 88
+      Top = 444
+      Width = 458
+      Caption = 'Press z to start'
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelStart1Click
+    end
+    object Shapebarre1: TShape
+      Left = 552
+      Height = 31
+      Top = 742
+      Width = 201
+      Brush.Color = clBlue
+      OnChangeBounds = Shapebarre1ChangeBounds
+    end
+    object Shapeball1: TShape
+      Left = 631
+      Height = 32
+      Top = 712
+      Width = 32
+      Brush.Color = clRed
+      OnChangeBounds = Shapeball1ChangeBounds
+      Shape = stCircle
+    end
+    object Labelscore1: TLabel
+      Left = 1074
+      Height = 41
+      Top = 8
+      Width = 102
+      Caption = ' score : '
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -30
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+      OnClick = Labelscore1Click
+    end
+    object LabelVie1: TLabel
+      Left = 1074
+      Height = 41
+      Top = 64
+      Width = 128
+      Caption = 'LabelVie1'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -30
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelVie1Click
+    end
+    object LabelEnd1: TLabel
+      Left = 1875
+      Height = 133
+      Top = 380
+      Width = 568
+      Caption = 'GAME OVER'
+      Font.Color = clRed
+      Font.Height = -100
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelEnd1Click
+    end
+    object LabelBonusMessage1: TLabel
+      Left = 320
+      Height = 1
+      Top = 10
+      Width = 1
+      Font.Color = clMaroon
+      Font.Height = -25
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelBonusMessage1Click
+    end
+    object Shapelimit1: TShape
+      Left = 0
+      Height = 12
+      Top = 120
+      Width = 1294
+      Brush.Color = clBlack
+    end
+    object LabelBonusThor1: TLabel
+      Left = 1750
+      Height = 88
+      Top = 12
+      Width = 540
+      Caption = 'LabelBonusThor1'
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelPlayer1: TLabel
+      Left = 24
+      Height = 52
+      Top = 32
+      Width = 215
+      Caption = 'LabelPlayer1'
+      ParentColor = False
+      OnClick = LabelPlayer1Click
+    end
+  end
+  object Panel3: TPanel
+    Left = 0
+    Height = 865
+    Top = 1250
+    Width = 1296
+    ClientHeight = 865
+    ClientWidth = 1296
+    Color = clHotLight
+    Font.Height = -25
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    OnClick = Panel3Click
+    object Shape21: TShape
+      Left = 120
+      Height = 41
+      Top = 340
+      Width = 81
+    end
+    object Shape22: TShape
+      Left = 1080
+      Height = 41
+      Top = 340
+      Width = 81
+    end
+    object Shape23: TShape
+      Left = 760
+      Height = 41
+      Top = 340
+      Width = 81
+    end
+    object Shape24: TShape
+      Left = 920
+      Height = 41
+      Top = 340
+      Width = 81
+    end
+    object Shape25: TShape
+      Left = 600
+      Height = 41
+      Top = 340
+      Width = 81
+    end
+    object Shape26: TShape
+      Left = 280
+      Height = 41
+      Top = 340
+      Width = 81
+      Brush.Color = clRed
+    end
+    object Shape27: TShape
+      Left = 360
+      Height = 41
+      Top = 300
+      Width = 81
+    end
+    object Shape28: TShape
+      Left = 520
+      Height = 41
+      Top = 300
+      Width = 81
+      OnChangeBounds = Shape28ChangeBounds
+    end
+    object Shape29: TShape
+      Left = 760
+      Height = 41
+      Top = 260
+      Width = 81
+      Brush.Color = clOlive
+    end
+    object Shape30: TShape
+      Left = 1000
+      Height = 41
+      Top = 300
+      Width = 81
+    end
+    object Shape31: TShape
+      Left = 120
+      Height = 41
+      Top = 260
+      Width = 81
+    end
+    object Shape32: TShape
+      Left = 200
+      Height = 41
+      Top = 300
+      Width = 81
+    end
+    object Shape33: TShape
+      Left = 280
+      Height = 41
+      Top = 260
+      Width = 81
+    end
+    object Shape34: TShape
+      Left = 440
+      Height = 41
+      Top = 260
+      Width = 81
+    end
+    object Shape35: TShape
+      Left = 600
+      Height = 41
+      Top = 260
+      Width = 81
+      OnChangeBounds = Shape35ChangeBounds
+    end
+    object Shape36: TShape
+      Left = 680
+      Height = 41
+      Top = 300
+      Width = 81
+      OnChangeBounds = Shape36ChangeBounds
+    end
+    object Shape37: TShape
+      Left = 840
+      Height = 41
+      Top = 300
+      Width = 81
+    end
+    object Shape38: TShape
+      Left = 920
+      Height = 41
+      Top = 260
+      Width = 81
+    end
+    object Shape39: TShape
+      Left = 1080
+      Height = 41
+      Top = 260
+      Width = 81
+    end
+    object Shape40: TShape
+      Left = 440
+      Height = 41
+      Top = 340
+      Width = 81
+      OnChangeBounds = Shape40ChangeBounds
+    end
+    object Shapelimit2: TShape
+      Left = 0
+      Height = 11
+      Top = 121
+      Width = 2858
+      OnChangeBounds = Shapelimit2ChangeBounds
+    end
+    object Shapebarre2: TShape
+      Left = 520
+      Height = 31
+      Top = 774
+      Width = 241
+    end
+    object Shapeball2: TShape
+      Left = 630
+      Height = 32
+      Top = 744
+      Width = 31
+      Shape = stCircle
+    end
+    object LabelVie2: TLabel
+      Left = 1144
+      Height = 35
+      Top = 68
+      Width = 107
+      Caption = 'LabelVie2'
+      ParentColor = False
+      OnClick = LabelVie2Click
+    end
+    object Labelscore2: TLabel
+      Left = 1064
+      Height = 35
+      Top = 16
+      Width = 72
+      Caption = 'score :'
+      ParentColor = False
+    end
+    object LabelStart2: TLabel
+      Left = 430
+      Height = 88
+      Top = 464
+      Width = 458
+      Caption = 'Press z to start'
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelEnd2: TLabel
+      Left = 1875
+      Height = 1
+      Top = 380
+      Width = 1
+      Font.Color = clRed
+      Font.Height = -100
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelBonusMessage2: TLabel
+      Left = 320
+      Height = 1
+      Top = 10
+      Width = 1
+      ParentColor = False
+      OnClick = LabelBonusMessage2Click
+    end
+    object LabelBonusThor2: TLabel
+      Left = 1750
+      Height = 88
+      Top = 12
+      Width = 504
+      Caption = 'LabelBonusThor2'
+      Font.Height = -66
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelPlayer2: TLabel
+      Left = 32
+      Height = 35
+      Top = 43
+      Width = 139
+      Caption = 'LabelPlayer2'
+      ParentColor = False
+    end
+  end
+  object Panel4: TPanel
+    Left = 0
+    Height = 865
+    Top = 1250
+    Width = 1295
+    ClientHeight = 865
+    ClientWidth = 1295
+    Color = clMaroon
+    ParentColor = False
+    TabOrder = 2
+    OnClick = Panel4Click
+    object Shape41: TShape
+      Left = 136
+      Height = 41
+      Top = 328
+      Width = 81
+      OnChangeBounds = Shape41ChangeBounds
+    end
+    object Shape43: TShape
+      Left = 468
+      Height = 41
+      Top = 328
+      Width = 81
+    end
+    object Shape44: TShape
+      Left = 388
+      Height = 41
+      Top = 368
+      Width = 81
+    end
+    object Shape45: TShape
+      Left = 216
+      Height = 41
+      Top = 368
+      Width = 81
+    end
+    object Shape46: TShape
+      Left = 906
+      Height = 41
+      Top = 256
+      Width = 81
+      OnChangeBounds = Shape46ChangeBounds
+    end
+    object Shape47: TShape
+      Left = 1108
+      Height = 41
+      Top = 256
+      Width = 81
+    end
+    object Shape48: TShape
+      Left = 628
+      Height = 41
+      Top = 208
+      Width = 81
+    end
+    object Shape49: TShape
+      Left = 628
+      Height = 41
+      Top = 248
+      Width = 81
+    end
+    object Shape50: TShape
+      Left = 548
+      Height = 41
+      Top = 288
+      Width = 81
+    end
+    object Shape51: TShape
+      Left = 1108
+      Height = 41
+      Top = 328
+      Width = 81
+      Brush.Color = clRed
+    end
+    object Shape52: TShape
+      Left = 296
+      Height = 41
+      Top = 368
+      Width = 81
+      Brush.Color = clOlive
+    end
+    object Shape53: TShape
+      Left = 136
+      Height = 41
+      Top = 256
+      Width = 81
+    end
+    object Shape54: TShape
+      Left = 216
+      Height = 41
+      Top = 328
+      Width = 81
+    end
+    object Shape55: TShape
+      Left = 948
+      Height = 41
+      Top = 368
+      Width = 81
+    end
+    object Shape56: TShape
+      Left = 788
+      Height = 41
+      Top = 328
+      Width = 81
+    end
+    object Shape57: TShape
+      Left = 708
+      Height = 41
+      Top = 288
+      Width = 81
+    end
+    object Shape58: TShape
+      Left = 868
+      Height = 41
+      Top = 368
+      Width = 81
+    end
+    object Shape59: TShape
+      Left = 1028
+      Height = 41
+      Top = 368
+      Width = 81
+    end
+    object Shape60: TShape
+      Left = 348
+      Height = 41
+      Top = 256
+      Width = 81
+    end
+    object Shapelimit3: TShape
+      Left = 0
+      Height = 15
+      Top = 130
+      Width = 1456
+    end
+    object Shapebarre3: TShape
+      Left = 548
+      Height = 31
+      Top = 766
+      Width = 241
+      OnChangeBounds = Shapebarre3ChangeBounds
+    end
+    object Shapeball3: TShape
+      Left = 648
+      Height = 32
+      Top = 736
+      Width = 31
+      Shape = stCircle
+    end
+    object labelVie3: TLabel
+      Left = 1174
+      Height = 52
+      Top = 74
+      Width = 155
+      Caption = 'labelVie3'
+      ParentColor = False
+      OnClick = labelVie3Click
+    end
+    object Labelscore3: TLabel
+      Left = 1096
+      Height = 52
+      Top = 32
+      Width = 111
+      Caption = 'score :'
+      ParentColor = False
+      OnClick = Labelscore3Click
+    end
+    object LabelStart3: TLabel
+      Left = 428
+      Height = 88
+      Top = 478
+      Width = 458
+      Caption = 'Press z to start'
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelEnd3: TLabel
+      Left = 1875
+      Height = 1
+      Top = 380
+      Width = 1
+      Font.Color = clBlack
+      Font.Height = -100
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelEnd3Click
+    end
+    object LabelBonusMessage3: TLabel
+      Left = 320
+      Height = 1
+      Top = 10
+      Width = 1
+      ParentColor = False
+    end
+    object LabelBonusThor3: TLabel
+      Left = 1750
+      Height = 88
+      Top = 12
+      Width = 504
+      Caption = 'LabelBonusThor3'
+      Font.Height = -66
+      ParentColor = False
+      ParentFont = False
+    end
+    object Shape42: TShape
+      Left = 1028
+      Height = 41
+      Top = 328
+      Width = 81
+    end
+    object LabelPlayer3: TLabel
+      Left = 24
+      Height = 52
+      Top = 40
+      Width = 215
+      Caption = 'LabelPlayer3'
+      ParentColor = False
+    end
+  end
+  object PanelMenu: TPanel
+    Left = 238
+    Height = 338
+    Top = 1250
+    Width = 911
+    ClientHeight = 338
+    ClientWidth = 911
+    Color = clGray
+    Font.Color = clPurple
+    Font.Height = -25
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    OnClick = PanelMenuClick
+    object LabelLevel: TLabel
+      Left = 366
+      Height = 55
+      Top = 8
+      Width = 183
+      Caption = 'Difficulty'
+      Font.CharSet = BALTIC_CHARSET
+      Font.Color = clYellow
+      Font.Height = -41
+      Font.Pitch = fpFixed
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelLevelClick
+    end
+    object LabelEasy: TLabel
+      Left = 55
+      Height = 46
+      Top = 79
+      Width = 69
+      Caption = 'easy'
+      Font.Color = clLime
+      Font.Height = -34
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelEasyClick
+    end
+    object LabelNormal: TLabel
+      Left = 55
+      Height = 46
+      Top = 130
+      Width = 115
+      Caption = 'normal'
+      Font.Color = clMaroon
+      Font.Height = -34
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelNormalClick
+    end
+    object LabelHard: TLabel
+      Left = 55
+      Height = 46
+      Top = 180
+      Width = 73
+      Caption = 'hard'
+      Font.Color = clRed
+      Font.Height = -34
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelHardClick
+    end
+    object EditSurname: TEdit
+      Left = 650
+      Height = 43
+      Top = 80
+      Width = 231
+      OnChange = EditSurnameChange
+      TabOrder = 0
+    end
+    object Label15: TLabel
+      Left = 660
+      Height = 46
+      Top = 40
+      Width = 156
+      Caption = 'surname :'
+      Font.Color = clYellow
+      Font.Height = -34
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+  end
+  object Panel5: TPanel
+    Tag = 1
+    Left = -1
+    Height = 865
+    Top = 1250
+    Width = 1295
+    ClientHeight = 865
+    ClientWidth = 1295
+    Color = clBackground
+    ParentColor = False
+    TabOrder = 4
+    OnClick = Panel5Click
+    object Shapelimit4: TShape
+      Left = -6
+      Height = 20
+      Top = 160
+      Width = 1701
+    end
+    object Shape62: TShape
+      Left = 516
+      Height = 41
+      Top = 462
+      Width = 81
+    end
+    object Shape63: TShape
+      Left = 516
+      Height = 41
+      Top = 302
+      Width = 81
+    end
+    object Shape64: TShape
+      Left = 246
+      Height = 41
+      Top = 382
+      Width = 81
+    end
+    object Shape65: TShape
+      Left = 596
+      Height = 41
+      Top = 502
+      Width = 81
+    end
+    object Shape66: TShape
+      Left = 676
+      Height = 41
+      Top = 462
+      Width = 81
+    end
+    object Shape67: TShape
+      Left = 756
+      Height = 41
+      Top = 422
+      Width = 81
+    end
+    object Shape61: TShape
+      Left = 436
+      Height = 41
+      Top = 342
+      Width = 81
+    end
+    object Shape68: TShape
+      Left = 676
+      Height = 41
+      Top = 302
+      Width = 81
+    end
+    object Shape69: TShape
+      Left = 596
+      Height = 41
+      Top = 262
+      Width = 81
+    end
+    object Shape70: TShape
+      Left = 356
+      Height = 41
+      Top = 382
+      Width = 81
+      Brush.Color = clYellow
+    end
+    object Shape71: TShape
+      Left = 436
+      Height = 41
+      Top = 422
+      Width = 81
+    end
+    object Shape72: TShape
+      Left = 596
+      Height = 41
+      Top = 208
+      Width = 81
+    end
+    object Shape73: TShape
+      Left = 756
+      Height = 41
+      Top = 342
+      Width = 81
+    end
+    object Shape74: TShape
+      Left = 836
+      Height = 41
+      Top = 382
+      Width = 81
+      Brush.Color = clRed
+      OnChangeBounds = Shape74ChangeBounds
+    end
+    object Shape75: TShape
+      Left = 246
+      Height = 41
+      Top = 572
+      Width = 81
+    end
+    object Shape76: TShape
+      Left = 946
+      Height = 41
+      Top = 202
+      Width = 81
+    end
+    object Shape77: TShape
+      Left = 246
+      Height = 41
+      Top = 208
+      Width = 81
+    end
+    object Shape78: TShape
+      Left = 946
+      Height = 41
+      Top = 382
+      Width = 81
+    end
+    object Shape79: TShape
+      Left = 946
+      Height = 41
+      Top = 572
+      Width = 81
+    end
+    object Shape80: TShape
+      Left = 596
+      Height = 41
+      Top = 572
+      Width = 81
+    end
+    object Shapebarre4: TShape
+      Left = 516
+      Height = 31
+      Top = 758
+      Width = 241
+    end
+    object Shapeball4: TShape
+      Left = 626
+      Height = 32
+      Top = 728
+      Width = 31
+      OnChangeBounds = Shapeball4ChangeBounds
+      Shape = stCircle
+    end
+    object LabelVie4: TLabel
+      Left = 1144
+      Height = 35
+      Top = 88
+      Width = 107
+      Caption = 'LabelVie4'
+      Font.Color = clWhite
+      Font.Height = -25
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelVie4Click
+    end
+    object Labelscore4: TLabel
+      Left = 1063
+      Height = 35
+      Top = 32
+      Width = 72
+      Caption = 'score :'
+      Font.Color = clWhite
+      Font.Height = -25
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelBonusThor4: TLabel
+      Left = 1750
+      Height = 88
+      Top = 12
+      Width = 263
+      Caption = 'Label114'
+      Font.Color = clWhite
+      Font.Height = -66
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelStart4: TLabel
+      Left = 441
+      Height = 88
+      Top = 40
+      Width = 458
+      Caption = 'Press z to start'
+      Font.Color = clWhite
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelBonusMessage4: TLabel
+      Left = 320
+      Height = 1
+      Top = 10
+      Width = 1
+      Font.Color = clWhite
+      Font.Height = -25
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelBonusMessage4Click
+    end
+    object LabelEnd4: TLabel
+      Left = 1875
+      Height = 133
+      Top = 480
+      Width = 485
+      Caption = 'LabelEnd4'
+      Font.Color = clRed
+      Font.Height = -100
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelEnd4Click
+    end
+    object LabelPlayer4: TLabel
+      Left = 32
+      Height = 51
+      Top = 56
+      Width = 208
+      Caption = 'LabelPlayer4'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -38
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object Panel6: TPanel
+    Left = 1
+    Height = 865
+    Top = 0
+    Width = 1295
+    ClientHeight = 865
+    ClientWidth = 1295
+    Color = clGreen
+    ParentColor = False
+    TabOrder = 5
+    OnClick = Panel6Click
+    object Shape81: TShape
+      Left = 88
+      Height = 41
+      Top = 320
+      Width = 81
+      OnChangeBounds = Shape81ChangeBounds
+    end
+    object Shape82: TShape
+      Left = 88
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape83: TShape
+      Left = 169
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape84: TShape
+      Left = 328
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape85: TShape
+      Left = 328
+      Height = 41
+      Top = 360
+      Width = 81
+    end
+    object Shape86: TShape
+      Left = 808
+      Height = 41
+      Top = 360
+      Width = 81
+    end
+    object Shape87: TShape
+      Left = 808
+      Height = 41
+      Top = 400
+      Width = 81
+    end
+    object Shape88: TShape
+      Left = 808
+      Height = 41
+      Top = 320
+      Width = 81
+    end
+    object Shape89: TShape
+      Left = 328
+      Height = 41
+      Top = 400
+      Width = 81
+    end
+    object Shape90: TShape
+      Left = 808
+      Height = 41
+      Top = 280
+      Width = 81
+    end
+    object Shape91: TShape
+      Left = 728
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape92: TShape
+      Left = 808
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape93: TShape
+      Left = 888
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shape94: TShape
+      Left = 88
+      Height = 41
+      Top = 280
+      Width = 81
+    end
+    object Shape95: TShape
+      Left = 88
+      Height = 41
+      Top = 360
+      Width = 81
+    end
+    object Shape96: TShape
+      Left = 88
+      Height = 41
+      Top = 400
+      Width = 81
+    end
+    object Shape97: TShape
+      Left = 208
+      Height = 41
+      Top = 280
+      Width = 81
+    end
+    object Shape98: TShape
+      Left = 328
+      Height = 41
+      Top = 280
+      Width = 81
+    end
+    object Shape99: TShape
+      Left = 328
+      Height = 41
+      Top = 320
+      Width = 81
+    end
+    object Shape100: TShape
+      Left = 249
+      Height = 41
+      Top = 240
+      Width = 81
+    end
+    object Shapelimit5: TShape
+      Left = -1
+      Height = 21
+      Top = 150
+      Width = 1709
+    end
+    object Shape101: TShape
+      Left = 498
+      Height = 41
+      Top = 410
+      Width = 51
+    end
+    object Shape102: TShape
+      Left = 588
+      Height = 41
+      Top = 410
+      Width = 71
+    end
+    object Shape103: TShape
+      Left = 588
+      Height = 41
+      Top = 370
+      Width = 71
+    end
+    object Shape104: TShape
+      Left = 498
+      Height = 41
+      Top = 370
+      Width = 51
+    end
+    object Shape105: TShape
+      Left = 498
+      Height = 41
+      Top = 330
+      Width = 81
+    end
+    object Shape106: TShape
+      Left = 578
+      Height = 41
+      Top = 330
+      Width = 81
+    end
+    object Shape107: TShape
+      Left = 498
+      Height = 41
+      Top = 450
+      Width = 81
+    end
+    object Shape108: TShape
+      Left = 578
+      Height = 41
+      Top = 450
+      Width = 81
+    end
+    object Shape109: TShape
+      Left = 588
+      Height = 41
+      Top = 490
+      Width = 71
+    end
+    object Shape110: TShape
+      Left = 578
+      Height = 41
+      Top = 530
+      Width = 81
+    end
+    object Shape111: TShape
+      Left = 498
+      Height = 41
+      Top = 530
+      Width = 81
+    end
+    object Shape112: TShape
+      Left = 1028
+      Height = 41
+      Top = 400
+      Width = 81
+    end
+    object Shape113: TShape
+      Left = 1058
+      Height = 41
+      Top = 320
+      Width = 141
+    end
+    object Shape114: TShape
+      Left = 1028
+      Height = 41
+      Top = 360
+      Width = 81
+    end
+    object Shape115: TShape
+      Left = 1148
+      Height = 41
+      Top = 360
+      Width = 81
+    end
+    object Shape116: TShape
+      Left = 1028
+      Height = 41
+      Top = 510
+      Width = 81
+    end
+    object Shape117: TShape
+      Left = 1148
+      Height = 41
+      Top = 470
+      Width = 81
+    end
+    object Shape118: TShape
+      Left = 1078
+      Height = 31
+      Top = 440
+      Width = 100
+    end
+    object Shape119: TShape
+      Left = 1148
+      Height = 41
+      Top = 400
+      Width = 81
+    end
+    object Shape120: TShape
+      Left = 1028
+      Height = 41
+      Top = 470
+      Width = 81
+    end
+    object Shape121: TShape
+      Left = 1058
+      Height = 41
+      Top = 550
+      Width = 141
+    end
+    object Shape122: TShape
+      Left = 1148
+      Height = 41
+      Top = 510
+      Width = 81
+    end
+    object Shapebarre5: TShape
+      Left = 536
+      Height = 31
+      Top = 765
+      Width = 241
+      OnChangeBounds = Shapebarre5ChangeBounds
+    end
+    object Shapeball5: TShape
+      Left = 642
+      Height = 32
+      Top = 736
+      Width = 31
+      OnChangeBounds = Shapeball5ChangeBounds
+      Shape = stCircle
+    end
+    object Labelscore5: TLabel
+      Left = 1081
+      Height = 52
+      Top = 32
+      Width = 111
+      Caption = 'score :'
+      ParentColor = False
+    end
+    object LabelEnd5: TLabel
+      Left = 1875
+      Height = 133
+      Top = 380
+      Width = 483
+      Caption = 'LabelEnd5'
+      Font.Color = clRed
+      Font.Height = -100
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelStart5: TLabel
+      Left = 416
+      Height = 88
+      Top = 32
+      Width = 458
+      Caption = 'Press z to start'
+      Font.Height = -66
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelBonusThor5: TLabel
+      Left = 1750
+      Height = 88
+      Top = 12
+      Width = 504
+      Caption = 'LabelBonusThor5'
+      Font.Height = -66
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelBonusMessage5: TLabel
+      Left = 320
+      Height = 1
+      Top = 10
+      Width = 1
+      ParentColor = False
+    end
+    object LabelVie5: TLabel
+      Left = 1171
+      Height = 52
+      Top = 92
+      Width = 164
+      Caption = 'LabelVie5'
+      ParentColor = False
+      OnClick = LabelVie5Click
+    end
+    object LabelPlayer5: TLabel
+      Left = 31
+      Height = 52
+      Top = 56
+      Width = 215
+      Caption = 'LabelPlayer5'
+      ParentColor = False
+    end
+  end
+  object PanelScore: TPanel
+    Left = 430
+    Height = 490
+    Top = 1250
+    Width = 840
+    ClientHeight = 490
+    ClientWidth = 840
+    Color = clPurple
+    Font.Color = clTeal
+    Font.Height = -25
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+    OnClick = PanelScoreClick
+    object LabelFinalScore: TLabel
+      Left = 80
+      Height = 46
+      Top = 210
+      Width = 124
+      Caption = 'SCORE :'
+      Font.Color = clWhite
+      Font.Height = -34
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelFinalScoreClick
+    end
+    object LabelMenu: TLabel
+      Left = 100
+      Height = 46
+      Top = 309
+      Width = 88
+      Caption = 'Menu'
+      Font.Color = clWhite
+      Font.Height = -34
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelMenuClick
+    end
+    object LabelQuit: TLabel
+      Left = 620
+      Height = 46
+      Top = 309
+      Width = 71
+      Caption = 'Quit'
+      Font.Color = clWhite
+      Font.Height = -34
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelQuitClick
+    end
+    object LabelRestart: TLabel
+      Left = 350
+      Height = 46
+      Top = 309
+      Width = 116
+      Caption = 'Restart'
+      Font.Color = clWhite
+      Font.Height = -34
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelRestartClick
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 216
+    Top = 170
+  end
+  object Timer2: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = Timer2Timer
+    OnStartTimer = Timer2StartTimer
+    OnStopTimer = Timer2StopTimer
+    Left = 216
+    Top = 270
+  end
+  object Timer3: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer3Timer
+    Left = 216
+    Top = 420
+  end
+  object Timer4: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer4Timer
+    OnStartTimer = Timer4StartTimer
+    Left = 157
+    Top = 500
+  end
+  object Timer5: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = Timer5Timer
+    Left = 206
+    Top = 670
+  end
+  object Timer6: TTimer
+    Enabled = False
+    OnTimer = Timer6Timer
+    Left = 306
+    Top = 60
+  end
+  object Timer7: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = Timer7Timer
+    Left = 90
+    Top = 466
+  end
+  object Timer8: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer8Timer
+    Left = 190
+    Top = 330
+  end
+  object Timer9: TTimer
+    Enabled = False
+    OnTimer = Timer9Timer
+    Left = 95
+    Top = 144
+  end
+  object Timer10: TTimer
+    Enabled = False
+    OnTimer = Timer10Timer
+    Left = 130
+    Top = 59
+  end
+  object Timer11: TTimer
+    Enabled = False
+    Interval = 13
+    OnTimer = Timer11Timer
+    Left = 90
+    Top = 280
+  end
+  object Timer12: TTimer
+    Enabled = False
+    OnTimer = Timer12Timer
+    OnStartTimer = Timer12StartTimer
+    OnStopTimer = Timer12StopTimer
+    Left = 286
+    Top = 184
+  end
+  object Timer13: TTimer
+    Enabled = False
+    OnTimer = Timer13Timer
+    Left = 324
+    Top = 598
+  end
+end

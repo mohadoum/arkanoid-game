@@ -228,6 +228,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Image5Click(Sender: TObject);
     procedure LabelPlayer1Click(Sender: TObject);
+    procedure LabelPlayer3Click(Sender: TObject);
     procedure LabelStart1Click(Sender: TObject);
     procedure LabelFinalScoreClick(Sender: TObject);
     procedure LabelBonusMessage1Click(Sender: TObject);
@@ -296,6 +297,8 @@ type
     procedure Timer12StopTimer(Sender: TObject);
     procedure Timer12Timer(Sender: TObject);
     procedure Timer13Timer(Sender: TObject);
+    procedure Timer1StartTimer(Sender: TObject);
+    procedure Timer1StopTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2StartTimer(Sender: TObject);
     procedure Timer2StopTimer(Sender: TObject);
@@ -306,6 +309,8 @@ type
     procedure Timer4Timer(Sender: TObject);
     procedure Timer5Timer(Sender: TObject);
     procedure Timer6Timer(Sender: TObject);
+    procedure Timer7StartTimer(Sender: TObject);
+    procedure Timer7StopTimer(Sender: TObject);
     procedure Timer7Timer(Sender: TObject);
     procedure Timer8Timer(Sender: TObject);
     procedure Timer9Timer(Sender: TObject);
@@ -313,11 +318,17 @@ type
     procedure DestroyPlaySoundObject();
     procedure PlayRandomedSound(DIRECTORY_NAME: string; NUMBER_OF_SOUND: integer; fPlayStyle: TPlayStyle);
     procedure IncreaseScore();
+    Procedure IncreaseLife();
     procedure TakeOneLife();
+    procedure HideBonusMessage();
     procedure ShowScore();
     procedure WaitAndDo(delay: integer; procPtr: TProcedurePointer);
-    Procedure Reinitializing();
-    procedure TopMoveGamePanelTo(t: integer);
+    Procedure FullReinitializing();
+    Procedure PartialReinitializing();
+    Procedure TopMoveGamePanelTo(t: integer);
+    Procedure Comment();
+    Procedure PickNewPanelIndex();
+    Procedure ChooseNewBonusBricks();
     function LeftTranslation(labeel: TLabel; startPoint: integer; endPoint: integer; duration: integer): integer;
 
   private
@@ -330,8 +341,9 @@ var
   Form1: TForm1;
   up, right, limit_right, limit_left, zKeyBlocked, bonuslong, bonusvie,
   growsize, stop: boolean;
-  playoops, bonusthor, activebonusthor, stopbonusthor, LeftTranslated, FallingBallSoundPlayed, FallingBallEventOccured, GameOverOccured: boolean;
-  aProcedureIsWaiting, VictoryEvent, AllBricksBroken : boolean;
+  playoops, BonusThorEvent, BonusThorTaken, BonusBarreEvent, BonusBarreTaken, BonusLifeEvent, BonusLifeTaken, LeftTranslated: Boolean;
+  BarTouchSoundPlayed, FallingBallSoundPlayed, FallingBallEventOccured, GameOverOccured: boolean;
+  aProcedureIsWaiting, VictoryEvent, AllBricksBroken, BarTopTouched, BarTouched, commentHeard : boolean;
 
   filePath: string;
 
@@ -344,7 +356,7 @@ var
   s3: array of TShape;
   s4: array of TShape;
   tabShape: array[1..5] of array of TShape;
-  tabpanel: array[1..5] of Tpanel;
+  tabPanel: array[1..5] of Tpanel;
   tab: array of integer;
   tabSave: array[1..5] of array of integer;
   //table which record initial position of all bricks (TShapes) before game start
@@ -353,9 +365,10 @@ var
   tabLimit: array[1..5] of TShape;
   tabLabel: array[1..5, 1..8] of TLabel;
   tabPositions: array[1..5, 1..2, 1..2] of integer;
-  choosenSound, i, j, jv, a, comptvie, al, av, b, c, d, dv, timebonusthor, k,
-  t, time, longbarre: integer;
-  score, compt, jumpbar, jumpbal: integer;
+  choosenSound, i, j, iT7, timeAllowedToBonusThor, numeroBrickBonusThor, timeAllowedToBonusBarre, numeroBrickBonusBarre: integer;
+  jv, a, comptvie, al, av, b, c, d, dv, k, lastChoosenPanelIndex, numeroBrickBonusLife: integer;
+  t, time, longbarre, bonusBarreLong, numberOfBricksConsecutivelyBroken: integer;
+  score, compt, jumpbar, jumpbal, initialBallColor, initialBrickColor, initialBarreColor: integer;
 
   array10Labels: array[0..9] of TLabel;
   iterator, iteratorTimer12, LTGameOverLabelIndex, LTVictoryLabelIndex, iteratorTimer13 : integer;
@@ -381,17 +394,18 @@ const
   NUMBER_OF_SOUND_LOSE = 7;
   NUMBER_OF_SOUND_START = 2;
   NUMBER_OF_SOUND_QUIT = 3;
-  NUMBER_OF_SOUND_GComment = 7;
+  NUMBER_OF_SOUND_GComment = 5;
   C_UnableToPlay = 'Unable to play ';
   DIRECTORY_NAME_WIN = 'win';
   DIRECTORY_NAME_LOSE = 'lose';
   DIRECTORY_NAME_START = 'start';
-  SIRECTORY_NAME_QUIT = 'quit';
+  DIRECTORY_NAME_QUIT = 'quit';
   DIRECTORY_NAME_GComment = 'GoodComment';
   DIRECTORY_SOUND = 'sounds';
   SOUND_BAR_TOUCH = 'BarTouch.wav';
   SOUND_BRICK_BREAK ='BrickBreak.wav';
-  SOUND_BAR_BONUS = 'BarBonus.wav';
+  SOUND_BARRE_BONUS = 'BarBonus.wav';
+  SOUND_LIFE_BONUS = 'LifeBonus.wav';
   SOUND_THOR_BONUS = 'ThorBonus.wav';
   SOUND_FALLING_BALL = 'Fall.wav';
   SOUND_NOT_MUCH_TIME_LEFT = 'NotMuchTimeLeft.wav';
@@ -399,7 +413,15 @@ const
   LEFT_TRANSLATION_STEP_DURATION = 100;
   BARRE_ALTITUDE = 100;
   MARGIN_TOP = 20; MARGIN = 20;
-
+  BONUS_BRICK_THOR_COLOR_1 = clRed;
+  BONUS_BRICK_THOR_COLOR_2 = clMaroon;
+  BONUS_BRICK_BARRE_COLOR_1 = clAqua;
+  BONUS_BRICK_BARRE_COLOR_2 = clBlue;
+  BONUS_BRICK_LIFE_COLOR_1 = clLime;
+  BONUS_BRICK_LIFE_COLOR_2 = clGreen;
+  TIME_BONUS_THOR = 7;
+  TIME_BONUS_BARRE = 10;
+  MIN_REQUIRED_FOR_COMMENT = 4;
 
   // Defined in mmsystem
   SND_SYNC = 0;
@@ -491,11 +513,11 @@ begin
   s2[18] := shape58;
   s2[19] := shape59;
   s2[20] := shape60;
-  tabpanel[1] := panel2;
-  tabpanel[2] := panel3;
-  tabpanel[3] := panel4;
-  tabpanel[4] := panel5;
-  tabpanel[5] := panel6;
+  tabPanel[1] := panel2;
+  tabPanel[2] := panel3;
+  tabPanel[3] := panel4;
+  tabPanel[4] := panel5;
+  tabPanel[5] := panel6;
   tabBarre[1] := shapeBarre1;
   tabBarre[2] := shapeBarre2;
   tabBarre[3] := shapeBarre3;
@@ -617,15 +639,15 @@ begin
 
   for k := 1 to NUMBER_OF_GAME_PANELS do
   begin
-       for iterator := 1 to 7 do
-      begin
-          tabLabel[k][iterator].AutoSize := True;
-      end;
+    tabPanel[k].Top := MAX_TOP;
   end;
 
   for k := 1 to NUMBER_OF_GAME_PANELS do
   begin
-    tabPanel[k].Top := MAX_TOP;
+       for iterator := 1 to 7 do
+      begin
+          tabLabel[k][iterator].AutoSize := True;
+      end;
   end;
 
   for k := 1 to NUMBER_OF_GAME_PANELS do
@@ -651,6 +673,10 @@ begin
   Timer1.Enabled := FALSE;
   Timer2.Enabled := FALSE;
   Timer3.Enabled := FALSE;
+  Timer4.Enabled := FALSE;
+  Timer5.Enabled := FALSE;
+  Timer6.Enabled := FALSE;
+  Timer7.Enabled := FALSE;
   Timer11.Enabled := FALSE;
   Timer12.Enabled := FALSE;
   Timer13.Enabled := FALSE;
@@ -665,25 +691,27 @@ begin
     tabBall[iterator].Top := tabBarre[iterator].Top - tabBall[iterator].Height;
   end;
 
-  //Labels contents
-  for iterator := 1 to NUMBER_OF_GAME_PANELS do
-  begin
-    tabLabel[iterator][1].Caption := ''; tabLabel[iterator][2].Caption := ''; tabLabel[iterator][5].Caption := ''; tabLabel[iterator][6].Caption := '';
-    tabLabel[iterator][3].Caption := 'SCORE: 0';
-    tabLabel[iterator][4].Caption := 'LIFE: 2';
-    tabLabel[iterator][5].Caption := 'Press Z to start';
-    tabLabel[iterator][7].Caption := 'PLAYER: Unknown';
-  end;
+
 
   //Score and life labels static positions. As well as shapeLimits & ...
   for iterator := 1 to NUMBER_OF_GAME_PANELS do
   begin
-    tabLabel[iterator][3].Caption := 'SCORE: 0';
-    tabLabel[iterator][4].Caption := 'LIFE: 2';
-    tabLabel[iterator][7].Caption := 'PLAYER: Unknown';
+    tabLabel[iterator][1].Font.Size:= 30;
     tabLabel[iterator][3].Font.Size:= 20;
     tabLabel[iterator][4].Font.Size:= 20;
+    tabLabel[iterator][5].Font.Size:= 40;
+    tabLabel[iterator][6].Font.Size:= 60;
     tabLabel[iterator][7].Font.Size:= 25;
+
+
+    tabLabel[iterator][1].Caption := ''; tabLabel[iterator][2].Caption := ''; tabLabel[iterator][5].Caption := ''; tabLabel[iterator][6].Caption := '';
+    tabLabel[iterator][1].Caption := 'Bonus x Activated for '+TIME_BONUS_BARRE.ToString+'s';
+    tabLabel[iterator][3].Caption := 'SCORE: 0';
+    tabLabel[iterator][4].Caption := 'LIFE: 2';
+    tabLabel[iterator][5].Caption := 'Press Z to start';
+    tabLabel[iterator][6].Caption := 'Gameover';
+    tabLabel[iterator][7].Caption := 'PLAYER: Unknown';
+
 
     //DEPENDANT TOP ORDER
     tabLabel[iterator][3].Top := tabPanel[iterator].Top + MARGIN_TOP;
@@ -691,19 +719,23 @@ begin
 
     tabLimit[iterator].Top := tabLabel[iterator][4].Top + tabLabel[iterator][4].Height + (2*MARGIN_TOP);
 
-    tabLabel[iterator][5].Top := ((tabPanel[iterator].Top + tabLimit[iterator].Top) div 2) - (tabLabel[iterator][5].Height div 2) - MAX_TOP;
+    tabLabel[iterator][1].Top := (tabLimit[iterator].Top div 2) - (tabLabel[iterator][1].Height div 2);
+    tabLabel[iterator][5].Top := (tabLimit[iterator].Top div 2) - (tabLabel[iterator][5].Height div 2);// - MAX_TOP;
+    tabLabel[iterator][6].Top := ((tabPanel[iterator].Top + tabPanel[iterator].Height) div 2) - (tabLabel[iterator][6].Height div 2);// - MAX_TOP;
+    tabLabel[iterator][7].Top := (tabLimit[iterator].Top div 2) - (tabLabel[iterator][7].Height div 2);// - MAX_TOP;
+
     //Left
     tabLimit[iterator].Left := tabPanel[iterator].Left;
     tabLimit[iterator].Width := tabPanel[iterator].Width;
     tabLimit[iterator].Height := MARGIN_TOP;
 
-    tabLabel[iterator][3].Left := tabPanel[iterator].Left + tabPanel[iterator].Width - tabLabel[iterator][3].width - (3*MARGIN);
+    tabLabel[iterator][1].Left := MAX_LEFT;
+
+    tabLabel[iterator][3].Left := tabPanel[iterator].Left + tabPanel[iterator].Width - tabLabel[iterator][3].Width - (3*MARGIN);
     tabLabel[iterator][4].Left := tabLabel[iterator][3].Left;
-
-    tabLabel[iterator][5].Left := tabPanel[iterator].Left + (tabPanel[iterator].Width div 2) - (tabLabel[iterator][5].Width div 2);
-
+    tabLabel[iterator][5].Left := (tabPanel[iterator].Width div 2) - (tabLabel[iterator][5].Width div 2);
+    tabLabel[iterator][6].Left := MAX_LEFT;
     tabLabel[iterator][7].Left := tabPanel[iterator].Left + MARGIN;
-    tabLabel[iterator][7].Top := ((tabPanel[iterator].Top + tabLimit[iterator].Top) div 2) - (tabLabel[iterator][7].Height div 2) - MAX_TOP;
 
   end;
 
@@ -725,17 +757,30 @@ begin
   //variables changing after Z key pressed
   score := 0;
   comptvie := 2;
+  k := 1;
+  lastChoosenPanelIndex := k;
+  BonusThorEvent := False;
+  BonusThorTaken := False;
+  timeAllowedToBonusThor := TIME_BONUS_THOR;
+  numeroBrickBonusThor := -1;
+  BonusBarreEvent := False;
+  BonusBarreTaken := False;
+  timeAllowedToBonusBarre := TIME_BONUS_BARRE;
+  numeroBrickBonusBarre := -1;
+  bonusBarreLong := Form1.Width div 3;
+  numeroBrickBonusLife := -1;
+  BarTopTouched := FALSE;
+  BarTouched := FALSE;
+  commentHeard := FALSE;
+  numberOfBricksConsecutivelyBroken := 0;
 
 
 
 
   time := 0;
   t := 0;
-  bonusthor := False;
-  stopbonusthor := True;
+
   dv := 0;
-  timebonusthor := 10;
-  activebonusthor := False;
   playoops := False;
   stop := True;
   d := 0;
@@ -751,9 +796,6 @@ begin
   jv := 0;
   bonuslong := False;
   bonusvie := False;
-
-
-
 
 
 end;
@@ -785,27 +827,6 @@ begin
       tabBarre[k].Left := tabBarre[k].left - jumpbar;
   end
   else
-  if (key = 'a') OR (key = 'A') then //want to active bonus
-  begin
-    if bonuslong = True then
-    begin
-      //sound effect for bonuslong
-      PlaySound('BarBonus.wav', psASync);
-
-      tabBarre[k].Width := 300;
-      bonuslong := False;
-    end;
-    if bonusthor = True then
-    begin
-      //sound effect for bonusthor
-      PlaySound('ThorBonus.wav', psASync);
-
-      activebonusthor := True;
-      bonusthor := False;
-    end;
-
-  end
-  else
   if (key = 'z') OR (key = 'Z') then //want to start game
   begin
     if zKeyBlocked = False then
@@ -831,6 +852,9 @@ begin
       timer2.Enabled:= True; //Gère tout ce qui est relatif à la chute du ball au sol
       timer11.Enabled := True;  //on fait mouvoir la balle
       timer4.Enabled := True; //Attente de victoire
+      Timer5.Enabled := True; //Check les bonus
+      Timer6.Enabled := True; //Prends les chronos des bonus
+      Timer7.Enabled := True; //Effets color bonus
 
     end;
   end;
@@ -843,6 +867,11 @@ begin
 end;
 
 procedure TForm1.LabelPlayer1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.LabelPlayer3Click(Sender: TObject);
 begin
 
 end;
@@ -886,8 +915,11 @@ end;
 procedure TForm1.LabelRestartClick(Sender: TObject);
 begin
   // Reinit all variables eventually touched in the precedent game
-  time := 0;
 
+
+
+
+  ChooseNewBonusBricks();
   PanelScore.Top := MAX_TOP;
   TopMoveGamePanelTo(0);
 
@@ -931,8 +963,7 @@ begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
 
-  randomize;
-  k := random(NUMBER_OF_GAME_PANELS) + 1;
+  PickNewPanelIndex(); //Choose a new k index
 
   if (Trim(EditSurname.Text).Length = 0)
   then
@@ -946,6 +977,8 @@ begin
   tabBarre[k].Width := longbarre;
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
 
+
+  ChooseNewBonusBricks();
   TopMoveGamePanelTo(0); //depend on k
   PanelMenu.top := 1000;
 end;
@@ -955,8 +988,7 @@ begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
 
-  randomize;
-  k := random(NUMBER_OF_GAME_PANELS) + 1;
+  PickNewPanelIndex(); //Choose a new k index
 
   if (Trim(EditSurname.Text).Length = 0)
   then
@@ -970,6 +1002,8 @@ begin
   tabBarre[k].Width := longbarre;
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
 
+
+  ChooseNewBonusBricks();
   TopMoveGamePanelTo(0); //depend on k
   PanelMenu.top := 1000;
 
@@ -1025,8 +1059,7 @@ begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
 
-  randomize;
-  k := random(NUMBER_OF_GAME_PANELS) + 1;
+  PickNewPanelIndex(); //Choose a new k index
 
   if (Trim(EditSurname.Text).Length = 0)
   then
@@ -1040,6 +1073,7 @@ begin
   tabBarre[k].Width := longbarre;
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
 
+  ChooseNewBonusBricks();
   TopMoveGamePanelTo(0); //depend on k
   PanelMenu.top := 1000;
 end;
@@ -1336,19 +1370,31 @@ begin
   end;
 
 
+
   //Conditions de désactivation du Timer 13
   if (not(aProcedureIsWaiting)) then
      Timer13.Enabled := FALSE;
 end;
 
+procedure TForm1.Timer1StartTimer(Sender: TObject);
+begin
+  BarTopTouched := False;
+  BarTouchSoundPlayed := False;
+end;
+
+procedure TForm1.Timer1StopTimer(Sender: TObject);
+begin
+  BarTopTouched := False;
+  BarTouchSoundPlayed := False;
+end;
+
 procedure TForm1.Timer1Timer(Sender: TObject); //on fait tourner la balle sans considérer les briques
 begin
-
+  BarTopTouched := False;
   //conditions de changement de direction de la balle sur l'axe vertical
   if tabBall[k].top <= tabLimit[k].top + tabLimit[k].Height then  //shapeLimit contact
   begin
     up := False;
-
   end
   else
   if (tabBall[k].top + tabBall[k].Height >= tabBarre[k].top) and
@@ -1359,7 +1405,8 @@ begin
       tabBarre[k].Width) then //shapeBar inner top contact
     begin
          up := True;
-         PlaySound(DIRECTORY_SOUND + '/' + SOUND_BAR_TOUCH, psAsync);
+         BarTopTouched := True;
+         BarTouched := True;
     end
     else
     if ((tabBall[k].Left + tabBall[k].Width > tabBarre[k].Left) and
@@ -1367,17 +1414,25 @@ begin
       ((tabBall[k].Left < tabBarre[k].Left + tabBarre[k].Width) and
       (tabBall[k].Left + tabBall[k].Width > tabBarre[k].Left + tabBarre[k].Width)) then //shapeBar top corner contact
     begin
-         right := not (right);
-         PlaySound(DIRECTORY_SOUND + '/' + SOUND_BAR_TOUCH, psAsync);
+         up := True;
+         BarTopTouched := True;
+         BarTouched := True;
     end;
-
   end
   else
   if (ball.Left + ball.Width >= bar.Left) and (ball.Left < bar.Left) and (ball.Top >= bar.Top) AND (ball.Top < bar.Top + bar.Height) then  //shapeBar right side contact
-     right := FALSE
+  begin
+       right := FALSE;
+       BarTouched := True;
+  end
   else
   if (ball.Left <= bar.Left + bar.Width) and (ball.Left + ball.Width > bar.Left + bar.Width) and (ball.Top >= bar.Top) AND (ball.Top < bar.Top + bar.Height) then   //shapeBar left side contact
-     right := TRUE;
+  begin
+       right := TRUE;
+       BarTouched := True;
+  end;
+
+
 
 
   //conditions de changement de direction de la balle sur l'axe horizontal
@@ -1387,7 +1442,21 @@ begin
   if tabBall[k].Left + tabBall[k].Width >= tabpanel[k].Left + tabpanel[k].Width then
     right := False;
 
+  if(BarTopTouched AND not(BarTouchSoundPlayed)) then //for playing sound
+  begin
+     BarTouchSoundPlayed := True;
+     PlaySound(DIRECTORY_SOUND + '/' +SOUND_BAR_TOUCH, psAsync);
+     BarTouchSoundPlayed := False;
+  end;
+
+  if(BarTouched) then //for reinitializing parameters for Comment Sound
+  begin
+     numberOfBricksConsecutivelyBroken := 0;
+     commentHeard := False;
+     BarTouched := False;
+  end;
 end;
+
 
 procedure TForm1.Timer2StartTimer(Sender: TObject);
 begin
@@ -1410,11 +1479,10 @@ begin
      //la balle dépasse la barre
      if (tabBall[k].Top > tabBarre[k].Top + tabBarre[k].Height) then
      begin
+       FallingBallSoundPlayed := TRUE;
        //Allumer le son falling Ball
        PlaySound(DIRECTORY_SOUND + '/' + SOUND_FALLING_BALL, psAsync);
-       FallingBallSoundPlayed := TRUE;
      end;
-
 
      if (FallingBallEventOccured = FALSE) then
      //la balle arrive au sol
@@ -1440,19 +1508,12 @@ begin
             WaitAndDo(3, @ShowScore);
 
             //Attendre l'affichage du score POUR réinitialiser
-            WaitAndDo(4, @Reinitializing);
+            WaitAndDo(4, @FullReinitializing);
        end
        else
        //(comptvie > 0) recentrer ball and bar positions
        begin
-           tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
-           tabBall[k].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabBall[k].width div 2);
-           tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
-           //Depending of the barre's Top
-           tabBall[k].Top := tabBarre[k].Top - tabBall[k].Height;
-           //change label Start content
-           tabLabel[k][5].Caption := 'Press Z to continue';
-           tabLabel[k][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
+           PartialReinitializing();
        end;
      end;
 
@@ -1491,9 +1552,9 @@ begin
       begin
         tabShape[k][i].top := 1000;
         increaseScore();
-        if activebonusthor = False then
+        Comment();
+        if BonusThorEvent = False then
           up := False;
-        PlaySound(DIRECTORY_SOUND + '/' + SOUND_BRICK_BREAK, psAsync);
       end;
     end
     else //descente
@@ -1506,9 +1567,9 @@ begin
       begin
         tabShape[k][i].top := 1000;
         increaseScore();
-        if activebonusthor = False then
+        Comment();
+        if BonusThorEvent = False then
           up := True;
-        PlaySound(DIRECTORY_SOUND + '/' + SOUND_BRICK_BREAK, psAsync);
       end;
 
     end;
@@ -1523,9 +1584,9 @@ begin
       begin
         tabShape[k][i].top := 1000;
         increaseScore();
-        if activebonusthor = False then
+        Comment();
+        if BonusThorEvent = False then
           right := False;
-        PlaySound(DIRECTORY_SOUND + '/' + SOUND_BRICK_BREAK, psAsync);
       end;
     end
     else //vers la gauche
@@ -1538,9 +1599,9 @@ begin
       begin
         tabShape[k][i].top := 1000;
         increaseScore();
-        if activebonusthor = False then
+        Comment();
+        if BonusThorEvent = False then
           right := True;
-        PlaySound(DIRECTORY_SOUND + '/' + SOUND_BRICK_BREAK, psAsync);
       end;
 
     end;
@@ -1577,10 +1638,8 @@ begin
     then
     begin
       VictoryEvent := True;
-      Timer11.Enabled := False; //On arrête de tourner la balle
-      zKeyBlocked := True; //On bloque les touches
 
-      //Allumer un son Game Over
+      //Allumer un son Victory
       PlayRandomedSound(DIRECTORY_NAME_WIN, NUMBER_OF_SOUND_WIN, psAsync);
 
       //Déplacer le label 'Congratulations' et le centrer
@@ -1591,46 +1650,99 @@ begin
       WaitAndDo(3, @ShowScore);
 
       //Attendre l'affichage du score POUR réinitialiser
-      WaitAndDo(4, @Reinitializing);
+      WaitAndDo(4, @FullReinitializing);
+
+      Timer11.Enabled := False; //On arrête de tourner la balle
+      zKeyBlocked := True; //On bloque les touches
+      Timer4.Enabled := False; //On arrête de gérer l'évènement victoire
     end;
   end;
 end;
 
-procedure TForm1.Timer5Timer(Sender: TObject);
+procedure TForm1.Timer5Timer(Sender: TObject); //Check Bonus Events
 begin
 
-  (*if (bonuslong = True) and (al = 0) then
+  for i:=1 to Length(tabShape[k]) do
   begin
-    tabLabel[k][1].Caption := 'press a to take the special bar bonus';
-    al := al + 1;
-  end;
-  if (bonusvie = True) and (av = 0) then
-  begin
-    tabLabel[k][5].font.color := clmaroon;
-    tabLabel[k][5].Caption := ' you have a special life bonus';
-    av := av + 1;
-  end;
-  if (bonusthor = True) and (dv = 0) then
-  begin
-    tabLabel[k][2].Caption := 'you have a ball''s thor bonus ,press a to take it';
-    dv := dv + 1;
-  end;
-  case a of
-    14: tabLabel[k][1].font.Color := clgreen;
-    10: tabLabel[k][1].font.Color := clblue;
-    7: tabLabel[k][1].font.Color := clyellow;
-    1: tabLabel[k][1].font.Color := clred
+    if ((i = numeroBrickBonusThor) AND (tabShape[k][i].Top > tabpanel[k].Top + tabpanel[k].Height) AND (not(BonusThorTaken))) then
+    begin
+       BonusThorEvent := True;
+       BonusThorTaken := True;
+       //Allumer le son bonus Thor
+       PlaySound(DIRECTORY_SOUND + '/' + SOUND_THOR_BONUS, psAsync);
+
+       //Déplacer le label Bonus Message et le centrer
+       tabLabel[k][1].Caption:= 'Bonus Thor activated for '+TIME_BONUS_THOR.ToString+'s!';
+       LeftTranslation(tabLabel[k][1], MAX_LEFT, tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][1].Width div 2), 1000);
+
+       //faire-pause-3-secondes ET hideBonusMessage
+       WaitAndDo(3, @HideBonusMessage);
+    end
+    else if ((i = numeroBrickBonusBarre) AND (tabShape[k][i].Top > tabpanel[k].Top + tabpanel[k].Height) AND (not(BonusBarreTaken))) then
+    begin
+       BonusBarreEvent := True;
+       BonusBarreTaken := True;
+       //Allumer le son bonus Barre
+       PlaySound(DIRECTORY_SOUND + '/' + SOUND_BARRE_BONUS, psAsync);
+
+       //Déplacer le label Bonus Message et le centrer
+       tabLabel[k][1].Caption:= 'Bonus Bar activated for '+TIME_BONUS_BARRE.ToString+'s!';
+       LeftTranslation(tabLabel[k][1], MAX_LEFT, tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][1].Width div 2), 1000);
+
+       //faire-pause-3-secondes ET hideBonusMessage
+       WaitAndDo(3, @HideBonusMessage);
+    end
+    else if ((i = numeroBrickBonusLife) AND (tabShape[k][i].Top > tabpanel[k].Top + tabpanel[k].Height) AND (not(BonusLifeTaken))) then
+    begin
+       BonusLifeEvent := True;
+       IncreaseLife();
+       BonusLifeTaken := True;
+       //Allumer le son bonus Life
+       PlaySound(DIRECTORY_SOUND + '/' + SOUND_LIFE_BONUS, psAsync);
+
+       //Déplacer le label Bonus Message et le centrer
+       tabLabel[k][1].Caption:= '+1 Life Got!';
+       LeftTranslation(tabLabel[k][1], MAX_LEFT, tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][1].Width div 2), 1000);
+
+       //faire-pause-3-secondes ET hideBonusMessage
+       WaitAndDo(3, @HideBonusMessage);
+    end;
 
   end;
-  if growsize then
-    tabLabel[k][1].font.size := tabLabel[k][1].font.size + 1;
-  if tabLabel[k][1].font.size >= 30 then
-    tabLabel[k][1].font.size := 15;             *)
+
 end;
 
 
-procedure TForm1.Timer6Timer(Sender: TObject);
+procedure TForm1.Timer6Timer(Sender: TObject); //Prendre un chrono pour tous les bonus
 begin
+   if(BonusThorEvent)
+   then
+   begin
+       timeAllowedToBonusThor := timeAllowedToBonusThor -1;
+       if (timeAllowedToBonusThor = 0) then
+       begin
+            BonusThorEvent := False;
+       end;
+   end;
+
+   if(BonusBarreEvent)
+   then
+   begin
+       if(tabBarre[k].Width <> bonusBarreLong) then
+       begin
+           tabBarre[k].Width := bonusBarreLong;
+       end;
+       timeAllowedToBonusBarre := timeAllowedToBonusBarre -1;
+       if (timeAllowedToBonusBarre = 0) then
+       begin
+            BonusBarreEvent := False;
+            tabBarre[k].Width := longbarre;
+       end;
+   end;
+
+
+
+  (*
   //Affichage des durrées des bonus
   if ((tabBarre[k].Width = 300) and (activebonusthor = True)) then
   begin
@@ -1683,20 +1795,71 @@ begin
       1: tabBall[k].brush.color := clolive;
       0: tabBall[k].brush.color := clred;
     end;
-  end;
+  end;*)
 end;
 
-procedure TForm1.Timer7Timer(Sender: TObject);
+procedure TForm1.Timer7StartTimer(Sender: TObject);
 begin
-  if (playoops = True) and (c = 0) then
+  iT7 := 0
+end;
+
+procedure TForm1.Timer7StopTimer(Sender: TObject);
+begin
+  iT7:= 0;
+  tabBall[k].Brush.Color := initialBallColor;
+  tabBarre[k].Brush.Color := initialBarreColor;
+  tabBarre[k].Width := longbarre;
+end;
+
+procedure TForm1.Timer7Timer(Sender: TObject); //Switch color ball and barre on Bonus Event
+begin
+  if (BonusThorEvent) then
   begin
-    //sound lose
-    randomize;
-    choosenSound := random(NUMBER_OF_SOUND_LOSE) + 1;
-    PlaySound(IntToStr(choosenSound) + '.wav', psASync);
-    c := c + 1;
-    playoops := False;
-    timer7.interval := 5000;
+    case iT7 of
+        9: tabBall[k].brush.color := clgreen;
+        8: tabBall[k].brush.color := clblue;
+        7: tabBall[k].brush.color := clyellow;
+        6: tabBall[k].brush.color := clred;
+        5: tabBall[k].brush.color := clgreen;
+        4: tabBall[k].brush.color := clred;
+        3: tabBall[k].brush.color := clblue;
+        2: tabBall[k].brush.color := clred;
+        1: tabBall[k].brush.color := clolive;
+        0: tabBall[k].brush.color := clred;
+    end;
+    iT7 := iT7 + 1;
+    if (iT7 = 10) then
+       iT7 := 0;
+  end;
+
+  if not(BonusThorEvent) AND (tabBall[k].Brush.Color <> initialBallColor) then
+  begin
+     tabBall[k].Brush.Color := initialBallColor;
+  end;
+
+  if (BonusBarreEvent) then
+  begin
+    case iT7 of
+        9: tabBarre[k].brush.color := clgreen;
+        8: tabBarre[k].brush.color := clblue;
+        7: tabBarre[k].brush.color := clyellow;
+        6: tabBarre[k].brush.color := clred;
+        5: tabBarre[k].brush.color := clgreen;
+        4: tabBarre[k].brush.color := clred;
+        3: tabBarre[k].brush.color := clblue;
+        2: tabBarre[k].brush.color := clred;
+        1: tabBarre[k].brush.color := clolive;
+        0: tabBarre[k].brush.color := clred;
+    end;
+    iT7 := iT7 + 1;
+    if (iT7 = 10) then
+       iT7 := 0;
+  end;
+
+  if not(BonusBarreEvent) AND (tabBarre[k].Brush.Color <> initialBarreColor)  then
+  begin
+     tabBarre[k].Brush.Color := initialBarreColor;
+     tabBarre[k].Width := longbarre;
   end;
 
 end;
@@ -1705,7 +1868,7 @@ end;
 procedure TForm1.Timer8Timer(Sender: TObject);
 begin
 
-  if (stopbonusthor = False) and (bonusthor) then
+  (*if (stopbonusthor = False) and (bonusthor) then
   begin
     timer8.Interval := 1;
     tabLabel[k][2].left := tabLabel[k][2].left - 50;
@@ -1718,7 +1881,7 @@ begin
       timer8.interval := 3000;
       stopbonusthor := False;
     end;
-  end;
+  end;*)
 
 end;
 
@@ -1756,6 +1919,7 @@ begin
     else
       flags := SND_SYNC or SND_NODEFAULT;
     try
+      //ShowMessage(szSoundFilepath);
       sndPlaySound(PChar(szSoundFilepath), flags);
     except
       On E: Exception do
@@ -1867,7 +2031,7 @@ procedure TForm1.PlayRandomedSound(DIRECTORY_NAME: string; NUMBER_OF_SOUND: inte
 begin
   if (DIRECTORY_NAME <> '') and (NUMBER_OF_SOUND > 0) then
   begin
-    randomize;
+    Randomize;
     choosenSound := random(NUMBER_OF_SOUND) + 1;
     filePath := DIRECTORY_SOUND + '/' + DIRECTORY_NAME + '/' +
     IntToStr(choosenSound) + '.wav';
@@ -1875,10 +2039,22 @@ begin
   end;
 end;
 
+procedure TForm1.HideBonusMessage();
+begin
+  tabLabel[k][1].Caption := '';
+  tabLabel[k][1].Left := MAX_LEFT;
+end;
+
 procedure TForm1.IncreaseScore();
 begin
   score := score + 1;
   tabLabel[k][3].Caption := 'SCORE: ' + IntToStr(score);
+end;
+
+procedure TForm1.IncreaseLife();
+begin
+  comptvie := comptvie + 1;
+  tabLabel[k][4].Caption := 'LIFE: ' + IntToStr(comptvie);
 end;
 
 
@@ -1893,7 +2069,7 @@ end;
 
 procedure TForm1.ShowScore();
 begin
-     tabPanel[k].Top := MAX_TOP;
+     TopMoveGamePanelTo(MAX_TOP);
      LabelFinalScore.Width := 10;
      LabelFinalScore.AutoSize:= TRUE;
      if (Length(EditSurname.Text) > 0) then
@@ -1928,15 +2104,16 @@ begin
 end;
 
 
-
-//Reinit all touched object and variables after the player started a part (pressing Z);
-Procedure TForm1.Reinitializing();
+//Reinit some touched object and variables after the player started a part (pressing Z);
+Procedure TForm1.PartialReinitializing();
 begin
   //timers
   Timer1.Enabled := FALSE;
-  Timer2.Enabled := FALSE;
   Timer3.Enabled := FALSE;
   Timer4.Enabled := FALSE;
+  Timer5.Enabled := FALSE;
+  Timer6.Enabled := FALSE;
+  Timer7.Enabled := FALSE;
   Timer11.Enabled := FALSE;
   Timer12.Enabled := FALSE;
   Timer13.Enabled := FALSE;
@@ -1944,20 +2121,45 @@ begin
   //k bar & ball initial positions
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
   tabBall[k].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabBall[k].width div 2);
-  if (tabPanel[k].Top >= MAX_TOP)
-  then
-      tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE - MAX_TOP
-  else
-      tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
+  tabBarre[k].Top := tabPanel[k].Top + (tabPanel[k].Height) - tabBarre[k].Height - BARRE_ALTITUDE;
+
   //Depending of the barre's Top
   tabBall[k].Top := tabBarre[k].Top - tabBall[k].Height;
 
+  //change label Start content
+  tabLabel[k][5].Caption := 'Press Z to continue';
+  tabLabel[k][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
+
+  //some variables touched
+
+  //Bonuses managment
+  BonusThorEvent := False;
+  timeAllowedToBonusThor := TIME_BONUS_THOR;
+  BonusBarreEvent := False;
+  timeAllowedToBonusBarre := TIME_BONUS_BARRE;
+  BonusLifeEvent := False;
+  tabLabel[k][1].Caption := ''; //label for bonus message
+  //Commenting
+  BarTouched := FALSE;
+  commentHeard := FALSE;
+  numberOfBricksConsecutivelyBroken := 0;
+  //Other
+  zKeyBlocked := False;
+end;
+
+//Reinit all touched object and variables after the player started a part (pressing Z);
+Procedure TForm1.FullReinitializing();
+begin
+
+  PartialReinitializing();
+
+  //Timers
+  Timer2.Enabled := FALSE;
 
   //k Labels contents
   tabLabel[k][1].Caption := ''; tabLabel[k][2].Caption := ''; tabLabel[k][6].Caption := '';
   tabLabel[k][3].Caption := 'SCORE: 0';
   tabLabel[k][4].Caption := 'LIFE: 2';
-  tabLabel[k][5].Caption := 'Press Z to start';
 
   //k Labels moved repositionning
   tabLabel[k][5].Left := tabPanel[k].Left + (tabPanel[k].Width div 2) - (tabLabel[k][5].Width div 2);
@@ -1979,6 +2181,17 @@ begin
   score := 0;
   comptvie := 2;
   zKeyBlocked := False;
+  BonusThorEvent := False;
+  BonusThorTaken := False;
+  timeAllowedToBonusThor := TIME_BONUS_THOR;
+  tabShape[k][numeroBrickBonusThor].Brush.Color := initialBrickColor;//cleaning special bonus brick color
+  BonusBarreEvent := False;
+  BonusBarreTaken := False;
+  timeAllowedToBonusBarre := TIME_BONUS_BARRE;
+  tabShape[k][numeroBrickBonusBarre].Brush.Color := initialBrickColor;//cleaning special bonus brick color
+  BonusLifeEvent := False;
+  BonusLifeTaken := False;
+  tabShape[k][numeroBrickBonusLife].Brush.Color := initialBrickColor;//cleaning special bonus brick color
   //Another variables to add?
 
 end;
@@ -1996,7 +2209,79 @@ begin
   //DEPENDANT TOP ORDER
   tabLabel[k][3].Top := tabPanel[k].Top + MARGIN_TOP;
   tabLabel[k][4].Top := tabLabel[k][3].Top + tabLabel[k][3].Height + MARGIN_TOP;
-  tabLimit[k].Top := tabLabel[k][4].Top + tabLabel[k][4].Height + (2*MARGIN_TOP)
+
+  tabLimit[k].Top := tabLabel[k][4].Top + tabLabel[k][4].Height + (2*MARGIN_TOP);
+
+  tabLabel[k][1].Top := (tabLimit[k].Top div 2) - (tabLabel[k][1].Height div 2);
+  tabLabel[k][5].Top := (tabLimit[k].Top div 2) - (tabLabel[k][5].Height div 2);// - MAX_TOP;
+  tabLabel[k][6].Top := ((tabPanel[k].Top + tabPanel[k].Height) div 2) - (tabLabel[k][6].Height div 2);// - MAX_TOP;
+  tabLabel[k][7].Top := (tabLimit[k].Top div 2) - (tabLabel[k][7].Height div 2);// - MAX_TOP;
+
+
+end;
+
+
+//Handle commenting sound
+Procedure TForm1.Comment();
+begin
+  numberOfBricksConsecutivelyBroken := numberOfBricksConsecutivelyBroken + 1;
+  if((numberOfBricksConsecutivelyBroken >= MIN_REQUIRED_FOR_COMMENT) AND not(commentHeard)) then
+  begin
+    commentHeard := True;
+    //Play Comment Sound
+    PlayRandomedSound(DIRECTORY_NAME_GComment, NUMBER_OF_SOUND_GComment, psAsync);
+  end;
+end;
+
+//Choisis un nouveau Panel de jeu
+Procedure TForm1.PickNewPanelIndex();
+begin
+  while(k = lastChoosenPanelIndex) do
+  begin
+       Randomize;
+       k := Random(NUMBER_OF_GAME_PANELS) + 1;
+  end;
+  lastChoosenPanelIndex := k;
+  //save initial colors of some shapes
+  initialBallColor := tabBall[k].Brush.Color;
+  initialBrickColor := tabShape[k][1].Brush.Color;
+  initialBarreColor := tabBarre[k].Brush.Color;
+end;
+
+//Change les briques bonus
+Procedure TForm1.ChooseNewBonusBricks();
+begin
+  //defining bonus bricks
+  //pick a random number among Panel Bricks
+  //Bonus Thor
+  Randomize;
+  numeroBrickBonusThor := random(Length(tabShape[k])-1) + 1;
+  if (tabPanel[k].Color <> BONUS_BRICK_THOR_COLOR_1) then
+     tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_1
+  else
+     tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_2;
+  //Bonus Barre
+  numeroBrickBonusBarre := numeroBrickBonusThor;
+  while(numeroBrickBonusBarre = numeroBrickBonusThor) do
+  begin
+       Randomize;
+       numeroBrickBonusBarre := random(Length(tabShape[k])-1) + 1;
+  end;
+  if (tabPanel[k].Color <> BONUS_BRICK_BARRE_COLOR_1) then
+       tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_1
+  else
+       tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_2;
+  //Bonus Life
+  numeroBrickBonusLife := numeroBrickBonusThor;
+  while((numeroBrickBonusLife = numeroBrickBonusThor) OR (numeroBrickBonusLife = numeroBrickBonusBarre)) do
+  begin
+       Randomize;
+       numeroBrickBonusLife := random(Length(tabShape[k])-1) + 1;
+  end;
+  if (tabPanel[k].Color <> BONUS_BRICK_LIFE_COLOR_1) then
+       tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_1
+  else
+       tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_2;
 
 end;
 

@@ -9,7 +9,7 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -39
+  Font.Height = -569
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   Position = poScreenCenter
@@ -278,9 +278,9 @@ object Form1: TForm1
     end
     object LabelPlayer1: TLabel
       Left = 24
-      Height = 52
+      Height = 757
       Top = 32
-      Width = 215
+      Width = 3154
       Caption = 'LabelPlayer1'
       ParentColor = False
       OnClick = LabelPlayer1Click
@@ -514,7 +514,7 @@ object Form1: TForm1
   object Panel4: TPanel
     Left = 0
     Height = 865
-    Top = 1250
+    Top = 1295
     Width = 1295
     ClientHeight = 865
     ClientWidth = 1295
@@ -661,21 +661,31 @@ object Form1: TForm1
       Shape = stCircle
     end
     object labelVie3: TLabel
-      Left = 1174
-      Height = 52
-      Top = 74
-      Width = 155
+      Left = 1118
+      Height = 45
+      Top = 64
+      Width = 133
       Caption = 'labelVie3'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
       OnClick = labelVie3Click
     end
     object Labelscore3: TLabel
-      Left = 1096
-      Height = 52
-      Top = 32
-      Width = 111
+      Left = 1143
+      Height = 45
+      Top = 10
+      Width = 92
       Caption = 'score :'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
       OnClick = Labelscore3Click
     end
     object LabelStart3: TLabel
@@ -726,11 +736,17 @@ object Form1: TForm1
     end
     object LabelPlayer3: TLabel
       Left = 24
-      Height = 52
+      Height = 45
       Top = 40
-      Width = 215
+      Width = 182
       Caption = 'LabelPlayer3'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
+      OnClick = LabelPlayer3Click
     end
   end
   object PanelMenu: TPanel
@@ -827,7 +843,7 @@ object Form1: TForm1
     Tag = 1
     Left = -1
     Height = 865
-    Top = 1250
+    Top = 1295
     Width = 1295
     ClientHeight = 865
     ClientWidth = 1295
@@ -1066,7 +1082,7 @@ object Form1: TForm1
   object Panel6: TPanel
     Left = 1
     Height = 865
-    Top = 0
+    Top = 1295
     Width = 1295
     ClientHeight = 865
     ClientWidth = 1295
@@ -1349,12 +1365,17 @@ object Form1: TForm1
       Shape = stCircle
     end
     object Labelscore5: TLabel
-      Left = 1081
-      Height = 52
-      Top = 32
-      Width = 111
+      Left = 1049
+      Height = 45
+      Top = 24
+      Width = 92
       Caption = 'score :'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
     end
     object LabelEnd5: TLabel
       Left = 1875
@@ -1397,21 +1418,31 @@ object Form1: TForm1
       ParentColor = False
     end
     object LabelVie5: TLabel
-      Left = 1171
-      Height = 52
-      Top = 92
-      Width = 164
+      Left = 1096
+      Height = 45
+      Top = 88
+      Width = 141
       Caption = 'LabelVie5'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
       OnClick = LabelVie5Click
     end
     object LabelPlayer5: TLabel
       Left = 31
-      Height = 52
+      Height = 50
       Top = 56
-      Width = 215
+      Width = 205
       Caption = 'LabelPlayer5'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -37
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
       ParentColor = False
+      ParentFont = False
     end
   end
   object PanelScore: TPanel
@@ -1485,6 +1516,8 @@ object Form1: TForm1
     Enabled = False
     Interval = 1
     OnTimer = Timer1Timer
+    OnStartTimer = Timer1StartTimer
+    OnStopTimer = Timer1StopTimer
     Left = 216
     Top = 170
   end
@@ -1527,8 +1560,10 @@ object Form1: TForm1
   end
   object Timer7: TTimer
     Enabled = False
-    Interval = 10
+    Interval = 500
     OnTimer = Timer7Timer
+    OnStartTimer = Timer7StartTimer
+    OnStopTimer = Timer7StopTimer
     Left = 90
     Top = 466
   end

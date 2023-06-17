@@ -21,12 +21,23 @@ type
 
   TForm1 = class(TForm)
     EditSurname: TEdit;
+    LabelBonusMessage7: TLabel;
+    LabelBonusThor7: TLabel;
+    LabelEnd7: TLabel;
+    LabelHeader: TLabel;
+    LabelBonusMessage6: TLabel;
+    LabelBonusThor6: TLabel;
+    LabelEnd6: TLabel;
     LabelPlayer5: TLabel;
     LabelPlayer4: TLabel;
     LabelPlayer3: TLabel;
     LabelPlayer2: TLabel;
     LabelPlayer1: TLabel;
     LabelLevel: TLabel;
+    LabelPlayer6: TLabel;
+    LabelPlayer7: TLabel;
+    Labelscore6: TLabel;
+    Labelscore7: TLabel;
     LabelStart1: TLabel;
     LabelBonusThor1: TLabel;
     LabelFinalScore: TLabel;
@@ -34,6 +45,8 @@ type
     LabelQuit: TLabel;
     Label15: TLabel;
     LabelRestart: TLabel;
+    LabelStart6: TLabel;
+    LabelStart7: TLabel;
     LabelVie4: TLabel;
     LabelVie5: TLabel;
     Labelscore5: TLabel;
@@ -65,6 +78,10 @@ type
     LabelBonusMessage1: TLabel;
     Labelscore2: TLabel;
     Labelscore3: TLabel;
+    labelVie6: TLabel;
+    labelVie7: TLabel;
+    Panel7: TPanel;
+    Panel8: TPanel;
     PanelMenu: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -97,8 +114,132 @@ type
     Shape120: TShape;
     Shape121: TShape;
     Shape122: TShape;
+    Shape123: TShape;
+    Shape124: TShape;
+    Shape125: TShape;
+    Shape126: TShape;
+    Shape127: TShape;
+    Shape128: TShape;
+    Shape129: TShape;
+    Shape130: TShape;
+    Shape131: TShape;
+    Shape132: TShape;
+    Shape133: TShape;
+    Shape134: TShape;
+    Shape135: TShape;
+    Shape136: TShape;
+    Shape137: TShape;
+    Shape138: TShape;
+    Shape139: TShape;
+    Shape140: TShape;
+    Shape141: TShape;
+    Shape142: TShape;
+    Shape143: TShape;
+    Shape144: TShape;
+    Shape145: TShape;
+    Shape146: TShape;
+    Shape147: TShape;
+    Shape148: TShape;
+    Shape149: TShape;
+    Shape150: TShape;
+    Shape151: TShape;
+    Shape152: TShape;
+    Shape153: TShape;
+    Shape154: TShape;
+    Shape155: TShape;
+    Shape156: TShape;
+    Shape157: TShape;
+    Shape158: TShape;
+    Shape159: TShape;
+    Shape160: TShape;
+    Shape161: TShape;
+    Shape162: TShape;
+    Shape163: TShape;
+    Shape164: TShape;
+    Shape165: TShape;
+    Shape166: TShape;
+    Shape167: TShape;
+    Shape168: TShape;
+    Shape169: TShape;
+    Shape170: TShape;
+    Shape171: TShape;
+    Shape172: TShape;
+    Shape173: TShape;
+    Shape174: TShape;
+    Shape175: TShape;
+    Shape176: TShape;
+    Shape177: TShape;
+    Shape178: TShape;
+    Shape179: TShape;
+    Shape180: TShape;
+    Shape181: TShape;
+    Shape182: TShape;
+    Shape183: TShape;
+    Shape184: TShape;
+    Shape185: TShape;
+    Shape186: TShape;
+    Shape187: TShape;
+    Shape188: TShape;
+    Shape189: TShape;
+    Shape190: TShape;
+    Shape191: TShape;
+    Shape192: TShape;
+    Shape193: TShape;
+    Shape194: TShape;
+    Shape195: TShape;
+    Shape196: TShape;
+    Shape197: TShape;
+    Shape198: TShape;
+    Shape199: TShape;
+    Shape200: TShape;
+    Shape201: TShape;
+    Shape202: TShape;
+    Shape203: TShape;
+    Shape204: TShape;
+    Shape205: TShape;
+    Shape206: TShape;
+    Shape207: TShape;
+    Shape208: TShape;
+    Shape209: TShape;
+    Shape210: TShape;
+    Shape211: TShape;
+    Shape212: TShape;
+    Shape213: TShape;
+    Shape214: TShape;
+    Shape215: TShape;
+    Shape216: TShape;
+    Shape217: TShape;
+    Shape218: TShape;
+    Shape219: TShape;
+    Shape220: TShape;
+    Shape221: TShape;
+    Shape222: TShape;
+    Shape223: TShape;
+    Shape224: TShape;
+    Shape225: TShape;
+    Shape226: TShape;
+    Shape227: TShape;
+    Shape228: TShape;
+    Shape229: TShape;
+    Shape230: TShape;
+    Shape231: TShape;
+    Shape232: TShape;
+    Shape233: TShape;
+    Shape234: TShape;
+    Shape235: TShape;
+    Shape236: TShape;
+    Shape237: TShape;
+    Shape238: TShape;
+    Shape239: TShape;
+    Shape240: TShape;
+    Shape241: TShape;
+    Shape242: TShape;
+    Shapeball6: TShape;
+    Shapeball7: TShape;
     Shapebarre5: TShape;
     Shapeball5: TShape;
+    Shapebarre6: TShape;
+    Shapebarre7: TShape;
     Shapelimit5: TShape;
     Shape11: TShape;
     Shape12: TShape;
@@ -209,6 +350,8 @@ type
     Shape9: TShape;
     Shapebarre1: TShape;
     Shapeball1: TShape;
+    Shapelimit6: TShape;
+    Shapelimit7: TShape;
     Timer1: TTimer;
     Timer10: TTimer;
     Timer11: TTimer;
@@ -227,6 +370,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Image5Click(Sender: TObject);
+    procedure LabelHeaderClick(Sender: TObject);
     procedure LabelPlayer1Click(Sender: TObject);
     procedure LabelPlayer3Click(Sender: TObject);
     procedure LabelStart1Click(Sender: TObject);
@@ -262,6 +406,7 @@ type
     procedure Panel5Click(Sender: TObject);
     procedure Panel6Click(Sender: TObject);
     procedure PanelScoreClick(Sender: TObject);
+    procedure Shape13ChangeBounds(Sender: TObject);
     procedure Shape3ChangeBounds(Sender: TObject);
     procedure Shapeball4ChangeBounds(Sender: TObject);
     procedure Shapeball5ChangeBounds(Sender: TObject);
@@ -312,6 +457,7 @@ type
     procedure Timer7StartTimer(Sender: TObject);
     procedure Timer7StopTimer(Sender: TObject);
     procedure Timer7Timer(Sender: TObject);
+    procedure Timer8StartTimer(Sender: TObject);
     procedure Timer8Timer(Sender: TObject);
     procedure Timer9Timer(Sender: TObject);
     procedure PlaySound(szSoundFilepath: string; fPlayStyle: TPlayStyle);
@@ -326,6 +472,7 @@ type
     Procedure FullReinitializing();
     Procedure PartialReinitializing();
     Procedure TopMoveGamePanelTo(t: integer);
+    Procedure ReplaceTheSpecialOneBrick();
     Procedure Comment();
     Procedure PickNewPanelIndex();
     Procedure ChooseNewBonusBricks();
@@ -355,25 +502,25 @@ var
   s2: array of TShape;
   s3: array of TShape;
   s4: array of TShape;
-  tabShape: array[1..5] of array of TShape;
-  tabPanel: array[1..5] of Tpanel;
+  s5: array of TShape;
+  s6: array of TShape;
+  tabShape: array[1..7] of array of TShape;
+  tabPanel: array[1..7] of Tpanel;
   tab: array of integer;
-  tabSave: array[1..5] of array of integer;
+  tabSave: array[1..7] of array of integer;
   //table which record initial position of all bricks (TShapes) before game start
-  tabBarre: array[1..5] of TShape;
-  tabBall: array[1..5] of TShape;
-  tabLimit: array[1..5] of TShape;
-  tabLabel: array[1..5, 1..8] of TLabel;
-  tabPositions: array[1..5, 1..2, 1..2] of integer;
-  choosenSound, i, j, iT7, timeAllowedToBonusThor, numeroBrickBonusThor, timeAllowedToBonusBarre, numeroBrickBonusBarre: integer;
+  tabBarre: array[1..7] of TShape;
+  tabBall: array[1..7] of TShape;
+  tabLimit: array[1..7] of TShape;
+  tabLabel: array[1..7, 1..8] of TLabel;
+  tabPositions: array[1..7, 1..2, 1..2] of integer;
+  choosenSound, i, j, iT7, iT8, timeAllowedToBonusThor, numeroBrickBonusThor, timeAllowedToBonusBarre, numeroBrickBonusBarre: integer;
   jv, a, comptvie, al, av, b, c, d, dv, k, lastChoosenPanelIndex, numeroBrickBonusLife: integer;
   t, time, longbarre, bonusBarreLong, numberOfBricksConsecutivelyBroken: integer;
   score, compt, jumpbar, jumpbal, initialBallColor, initialBrickColor, initialBarreColor: integer;
 
   array10Labels: array[0..9] of TLabel;
   iterator, iteratorTimer12, LTGameOverLabelIndex, LTVictoryLabelIndex, iteratorTimer13 : integer;
-
-  totalBricks : array[1..5] of integer;
 
   //LT stands for Left Translation
   array10LTStartPoint, array10LTEndPoint, array10LTDuration, array10LTStep : array[0..9] of integer;
@@ -389,7 +536,7 @@ var
 
 const
 
-  NUMBER_OF_GAME_PANELS = 5;
+  NUMBER_OF_GAME_PANELS = 7;
   NUMBER_OF_SOUND_WIN = 2;
   NUMBER_OF_SOUND_LOSE = 7;
   NUMBER_OF_SOUND_START = 2;
@@ -445,11 +592,13 @@ begin
   assign(fich_score,'fscore');}
 
 
-  setLength(s, 20);
-  setLength(s1, 20);
-  setLength(s2, 20);
-  setLength(s3, 20);
+  setLength(s, 25);
+  setLength(s1, 33);
+  setLength(s2, 48);
+  setLength(s3, 46);
   setLength(s4, 42);
+  setLength(s5, 47);
+  setLength(s6, 1);
   s[1] := shape1;
   s[2] := shape2;
   s[3] := shape3;
@@ -470,6 +619,11 @@ begin
   s[18] := shape18;
   s[19] := shape19;
   s[20] := shape20;
+  s[21] := shape123;
+  s[22] := shape124;
+  s[23] := shape125;
+  s[24] := shape126;
+  s[25] := shape127;
   s1[1] := shape21;
   s1[2] := shape22;
   s1[3] := shape23;
@@ -488,12 +642,23 @@ begin
   s1[16] := shape36;
   s1[17] := shape37;
   s1[18] := shape38;
-
   s1[19] := shape39;
   s1[20] := shape40;
+  s1[21] := shape128;
+  s1[22] := shape129;
+  s1[23] := shape130;
+  s1[24] := shape131;
+  s1[25] := shape132;
+  s1[26] := shape133;
+  s1[27] := shape134;
+  s1[28] := shape135;
+  s1[29] := shape136;
+  s1[30] := shape137;
+  s1[31] := shape138;
+  s1[32] := shape139;
+  s1[33] := shape140;
 
   s2[1] := shape41;
-
   s2[2] := shape42;
   s2[3] := shape43;
   s2[4] := shape44;
@@ -513,26 +678,62 @@ begin
   s2[18] := shape58;
   s2[19] := shape59;
   s2[20] := shape60;
+  s2[21] := shape141;
+  s2[22] := shape142;
+  s2[23] := shape143;
+  s2[24] := shape144;
+  s2[25] := shape145;
+  s2[26] := shape146;
+  s2[27] := shape147;
+  s2[28] := shape148;
+  s2[29] := shape149;
+  s2[30] := shape150;
+  s2[31] := shape151;
+  s2[32] := shape152;
+  s2[33] := shape153;
+  s2[34] := shape154;
+  s2[35] := shape155;
+  s2[36] := shape156;
+  s2[37] := shape157;
+  s2[38] := shape158;
+  s2[39] := shape159;
+  s2[40] := shape160;
+  s2[41] := shape161;
+  s2[42] := shape162;
+  s2[43] := shape163;
+  s2[44] := shape164;
+  s2[45] := shape165;
+  s2[46] := shape166;
+  s2[47] := shape167;
+  s2[48] := shape168;
   tabPanel[1] := panel2;
   tabPanel[2] := panel3;
   tabPanel[3] := panel4;
   tabPanel[4] := panel5;
   tabPanel[5] := panel6;
+  tabPanel[6] := panel7;
+  tabPanel[7] := Panel8;
   tabBarre[1] := shapeBarre1;
   tabBarre[2] := shapeBarre2;
   tabBarre[3] := shapeBarre3;
   tabBarre[4] := shapeBarre4;
   tabBarre[5] := shapeBarre5;
+  tabBarre[6] := shapeBarre6;
+  tabBarre[7] := shapeBarre7;
   tabBall[1] := Shapeball1;
   tabBall[2] := Shapeball2;
   tabBall[3] := Shapeball3;
   tabBall[4] := Shapeball4;
   tabBall[5] := Shapeball5;
+  tabBall[6] := Shapeball6;
+  tabBall[7] := Shapeball7;
   tabLimit[1] := ShapeLimit1;
   tabLimit[2] := ShapeLimit2;
   tabLimit[3] := ShapeLimit3;
   tabLimit[4] := ShapeLimit4;
   tabLimit[5] := ShapeLimit5;
+  tabLimit[6] := ShapeLimit6;
+  tabLimit[7] := ShapeLimit7;
   s3[1] := shape61;
   s3[2] := shape62;
   s3[3] := shape63;
@@ -553,6 +754,32 @@ begin
   s3[18] := shape78;
   s3[19] := shape79;
   s3[20] := shape80;
+  s3[21] := shape169;
+  s3[22] := shape170;
+  s3[23] := shape171;
+  s3[24] := shape172;
+  s3[25] := shape173;
+  s3[26] := shape174;
+  s3[27] := shape175;
+  s3[28] := shape176;
+  s3[29] := shape177;
+  s3[30] := shape178;
+  s3[31] := shape179;
+  s3[32] := shape180;
+  s3[33] := shape181;
+  s3[34] := shape182;
+  s3[35] := shape183;
+  s3[36] := shape184;
+  s3[37] := shape185;
+  s3[38] := shape186;
+  s3[39] := shape187;
+  s3[40] := shape188;
+  s3[41] := shape189;
+  s3[42] := shape190;
+  s3[43] := shape191;
+  s3[44] := shape192;
+  s3[45] := shape193;
+  s3[46] := shape194;
   s4[1] := shape81;
   s4[2] := shape82;
   s4[3] := shape83;
@@ -595,11 +822,61 @@ begin
   s4[40] := shape120;
   s4[41] := shape121;
   s4[42] := shape122;
+  s5[1] := shape195;
+  s5[2] := shape196;
+  s5[3] := shape197;
+  s5[4] := shape198;
+  s5[5] := shape199;
+  s5[6] := shape200;
+  s5[7] := shape201;
+  s5[8] := shape202;
+  s5[9] := shape203;
+  s5[10] := shape204;
+  s5[11] := shape205;
+  s5[12] := shape206;
+  s5[13] := shape207;
+  s5[14] := shape208;
+  s5[15] := shape209;
+  s5[16] := shape210;
+  s5[17] := shape211;
+  s5[18] := shape212;
+  s5[19] := shape213;
+  s5[20] := shape214;
+  s5[21] := shape215;
+  s5[22] := shape216;
+  s5[23] := shape217;
+  s5[24] := shape218;
+  s5[25] := shape219;
+  s5[26] := shape220;
+  s5[27] := shape221;
+  s5[28] := shape222;
+  s5[29] := shape223;
+  s5[30] := shape224;
+  s5[31] := shape225;
+  s5[32] := shape226;
+  s5[33] := shape227;
+  s5[34] := shape228;
+  s5[35] := shape229;
+  s5[36] := shape230;
+  s5[37] := shape231;
+  s5[38] := shape232;
+  s5[39] := shape233;
+  s5[40] := shape234;
+  s5[41] := shape235;
+  s5[42] := shape236;
+  s5[43] := shape237;
+  s5[44] := shape238;
+  s5[45] := shape239;
+  s5[46] := shape240;
+  s5[47] := shape241;
+  s6[1] := shape242; //ALHAMDOULILLAH
   tabShape[1] := s;
   tabShape[2] := s1;
   tabShape[3] := s2;
   tabShape[4] := s3;
   tabShape[5] := s4;
+  tabShape[6] := s5;
+  tabShape[7] := s6;
   tabLabel[1][1] := LabelBonusMessage1; //for bonus message
   tabLabel[1][2] := LabelBonusThor1; //for bonus thor
   tabLabel[1][3] := Labelscore1; //for score
@@ -635,6 +912,20 @@ begin
   tabLabel[5][5] := LabelStart5; //for start
   tabLabel[5][6] := LabelEnd5; //for end
   tabLabel[5][7] := LabelPlayer5; //for player Name
+  tabLabel[6][1] := LabelBonusMessage6; //for bonus message
+  tabLabel[6][2] := LabelBonusThor6; //for bonus thor
+  tabLabel[6][3] := labelscore6; //for score
+  tabLabel[6][4] := LabelVie6; //for life
+  tabLabel[6][5] := LabelStart6; //for start
+  tabLabel[6][6] := LabelEnd6; //for end
+  tabLabel[6][7] := LabelPlayer6; //for player Name
+  tabLabel[7][1] := LabelBonusMessage7; //for bonus message
+  tabLabel[7][2] := LabelBonusThor7; //for bonus thor
+  tabLabel[7][3] := labelscore7; //for score
+  tabLabel[7][4] := LabelVie7; //for life
+  tabLabel[7][5] := LabelStart7; //for start
+  tabLabel[7][6] := LabelEnd7; //for end
+  tabLabel[7][7] := LabelPlayer7; //for player Name
 
 
   for k := 1 to NUMBER_OF_GAME_PANELS do
@@ -653,8 +944,10 @@ begin
   for k := 1 to NUMBER_OF_GAME_PANELS do
   begin
     setLength(tab, Length(tabShape[k]));
+  //  ShowMessage(Length(tabShape[k]).ToString);
     for t := 1 to Length(tabShape[k]) do
     begin
+      //ShowMessage('k:'+k.ToString + ' t:'+t.ToString + tabShape[k][t].Top.ToString);
       tab[t] := tabShape[k][t].Top;
     end;
 
@@ -666,8 +959,6 @@ begin
    PanelMenu.Top := (Form1.Height div 2) - (PanelMenu.Height div 2);
    PanelMenu.Left := (Form1.Width div 2) - (PanelMenu.Width div 2);
 
-  //defining totalBricks array which contains bricks number of each panel
-  totalBricks[1] := 20; totalBricks[2] := 20; totalBricks[3] := 20; totalBricks[4] := 20; totalBricks[5] := 42;
 
   //timers
   Timer1.Enabled := FALSE;
@@ -812,7 +1103,6 @@ end;
 
 procedure TForm1.FormKeyPress(Sender: TObject; var key: char);
 begin
-
   if (key = 'm') OR (key = 'M') then //want to go right
   begin
     limit_left := False;
@@ -862,6 +1152,11 @@ begin
 end;
 
 procedure TForm1.Image5Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.LabelHeaderClick(Sender: TObject);
 begin
 
 end;
@@ -922,6 +1217,7 @@ begin
   ChooseNewBonusBricks();
   PanelScore.Top := MAX_TOP;
   TopMoveGamePanelTo(0);
+  zKeyBlocked := False;
 
   (*bonusthor := False;
   stopbonusthor := True;
@@ -1134,6 +1430,11 @@ begin
 end;
 
 procedure TForm1.PanelScoreClick(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Shape13ChangeBounds(Sender: TObject);
 begin
 
 end;
@@ -1508,7 +1809,7 @@ begin
             WaitAndDo(3, @ShowScore);
 
             //Attendre l'affichage du score POUR réinitialiser
-            WaitAndDo(4, @FullReinitializing);
+            WaitAndDo(3, @FullReinitializing);
        end
        else
        //(comptvie > 0) recentrer ball and bar positions
@@ -1650,7 +1951,7 @@ begin
       WaitAndDo(3, @ShowScore);
 
       //Attendre l'affichage du score POUR réinitialiser
-      WaitAndDo(4, @FullReinitializing);
+      WaitAndDo(3, @FullReinitializing);
 
       Timer11.Enabled := False; //On arrête de tourner la balle
       zKeyBlocked := True; //On bloque les touches
@@ -1864,25 +2165,33 @@ begin
 
 end;
 
-
-procedure TForm1.Timer8Timer(Sender: TObject);
+procedure TForm1.Timer8StartTimer(Sender: TObject);
 begin
+  iT8 := 0;
+end;
 
-  (*if (stopbonusthor = False) and (bonusthor) then
-  begin
-    timer8.Interval := 1;
-    tabLabel[k][2].left := tabLabel[k][2].left - 50;
-  end;
-  if (tabLabel[k][2].left > 250) and (bonusthor) and (dv = 1) then
-  begin
-    tabLabel[k][2].left := tabLabel[k][2].left - 50;
-    if (tabLabel[k][2].left <= 250) and (stopbonusthor) then
+
+procedure TForm1.Timer8Timer(Sender: TObject); //handle changing color of the specialOneBrick
+begin
+    if(k <> 7) then
     begin
-      timer8.interval := 3000;
-      stopbonusthor := False;
+      Timer8.Enabled := False;
     end;
-  end;*)
-
+    case iT8 of
+        9: tabShape[k][1].brush.color := clgreen;
+        8: tabShape[k][1].brush.color := clblue;
+        7: tabShape[k][1].brush.color := clyellow;
+        6: tabShape[k][1].brush.color := clred;
+        5: tabShape[k][1].brush.color := clgreen;
+        4: tabShape[k][1].brush.color := clred;
+        3: tabShape[k][1].brush.color := clblue;
+        2: tabShape[k][1].brush.color := clred;
+        1: tabShape[k][1].brush.color := clolive;
+        0: tabShape[k][1].brush.color := clred;
+    end;
+    iT8 := iT8 + 1;
+    if (iT8 = 10) then
+       iT8 := 0;
 end;
 
 procedure TForm1.Timer9Timer(Sender: TObject);   //count 3 seconds to show score.
@@ -2070,16 +2379,29 @@ end;
 procedure TForm1.ShowScore();
 begin
      TopMoveGamePanelTo(MAX_TOP);
-     LabelFinalScore.Width := 10;
+     LabelHeader.AutoSize := TRUE;
+     LabelHeader.Caption := 'Final Score';
      LabelFinalScore.AutoSize:= TRUE;
      if (Length(EditSurname.Text) > 0) then
-        LabelFinalScore.Caption := EditSurname.Text + ', you scored ' + IntToStr(score) + '/' + IntToStr(TotalBricks[k]) + '. '
+        LabelFinalScore.Caption := ' ' + EditSurname.Text + ', you scored ' + IntToStr(score) + '/' + IntToStr(Length(tabShape[k])) + '. '
      else
-        LabelFinalScore.Caption := 'You scored ' + IntToStr(score) + '/' + IntToStr(TotalBricks[k]) + '. ';
+        LabelFinalScore.Caption := ' You scored ' + IntToStr(score) + '/' + IntToStr(Length(tabShape[k])) + '. ';
      if (VictoryEvent) then
         LabelFinalScore.Caption := LabelFinalScore.Caption + 'Winner Winner Chicken!';
      PanelScore.Left := (Form1.width div 2) - (PanelScore.Width div 2);
      PanelScore.Top := (Form1.Height div 2) - (PanelScore.Height div 2);
+     LabelHeader.left :=  (PanelScore.Width div 2) - (LabelHeader.Width div 2);
+     LabelHeader.Top := MARGIN_TOP;
+     LabelFinalScore.Top := LabelHeader.Top + LabelHeader.Height + (2*MARGIN_TOP);
+     LabelFinalScore.Left := MARGIN;
+     LabelMenu.Top := LabelFinalScore.Top + LabelFinalScore.Height + (3*MARGIN_TOP);
+     LabelMenu.Left:= 2 * MARGIN;
+     LabelRestart.Top := LabelMenu.Top;
+     LabelRestart.Left := (PanelScore.Width div 2) - (LabelRestart.Width div 2);
+     LabelQuit.Top := LabelMenu.Top;
+     LabelQuit.Left := PanelScore.Width - LabelQuit.Width - (2*MARGIN);
+     zKeyBlocked:= True; //On bloque le démarrage d'une partie
+
 end;
 
 
@@ -2144,7 +2466,6 @@ begin
   commentHeard := FALSE;
   numberOfBricksConsecutivelyBroken := 0;
   //Other
-  zKeyBlocked := False;
 end;
 
 //Reinit all touched object and variables after the player started a part (pressing Z);
@@ -2180,7 +2501,6 @@ begin
   //variables changing after Z key pressed
   score := 0;
   comptvie := 2;
-  zKeyBlocked := False;
   BonusThorEvent := False;
   BonusThorTaken := False;
   timeAllowedToBonusThor := TIME_BONUS_THOR;
@@ -2218,7 +2538,38 @@ begin
   tabLabel[k][7].Top := (tabLimit[k].Top div 2) - (tabLabel[k][7].Height div 2);// - MAX_TOP;
 
 
+  //Cas spécial du panel à une seule brique: on la place au hazard
+  if(k = 7) then
+  begin
+      ReplaceTheSpecialOneBrick();
+      Timer8.Enabled := True;
+  end;
 end;
+
+
+Procedure TForm1.ReplaceTheSpecialOneBrick(); //only for panel 8
+var bottomPoint, topPoint, leftPoint, rightPoint, numberOfPart: integer;
+begin
+     if(k = 7) then
+     begin
+         //defining placable area
+         topPoint := tabLimit[k].Top + tabLimit[k].Height + (2 * MARGIN);
+         bottomPoint := tabBarre[k].Top - (2 * MARGIN);
+         leftPoint := tabPanel[k].Left + (2 * MARGIN);
+         rightPoint := tabPanel[k].Left + (tabPanel[k].Width) - (2 * MARGIN);
+
+         //dividing the area
+         numberOfPart := 10;
+
+         //choosing a point of the area randomly
+         Randomize;
+         tabShape[k][1].Top := topPoint + (((bottomPoint - topPoint) div numberOfPart) * (Random(numberOfPart -1) +1));
+         Randomize;
+         tabShape[k][1].Left := leftPoint + (((rightPoint - leftPoint) div numberOfPart) * (Random(numberOfPart -1) +1));
+     end;
+end;
+
+
 
 
 //Handle commenting sound
@@ -2252,36 +2603,46 @@ end;
 Procedure TForm1.ChooseNewBonusBricks();
 begin
   //defining bonus bricks
-  //pick a random number among Panel Bricks
-  //Bonus Thor
-  Randomize;
-  numeroBrickBonusThor := random(Length(tabShape[k])-1) + 1;
-  if (tabPanel[k].Color <> BONUS_BRICK_THOR_COLOR_1) then
-     tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_1
-  else
-     tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_2;
-  //Bonus Barre
-  numeroBrickBonusBarre := numeroBrickBonusThor;
-  while(numeroBrickBonusBarre = numeroBrickBonusThor) do
+  //pick a random number among Panel Bricks sauf pour le panel 8 où il y'a une seule brique
+  if(k <> 7) then
   begin
-       Randomize;
-       numeroBrickBonusBarre := random(Length(tabShape[k])-1) + 1;
-  end;
-  if (tabPanel[k].Color <> BONUS_BRICK_BARRE_COLOR_1) then
-       tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_1
-  else
-       tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_2;
-  //Bonus Life
-  numeroBrickBonusLife := numeroBrickBonusThor;
-  while((numeroBrickBonusLife = numeroBrickBonusThor) OR (numeroBrickBonusLife = numeroBrickBonusBarre)) do
+      //Bonus Thor
+      Randomize;
+      numeroBrickBonusThor := random(Length(tabShape[k])-1) + 1;
+      if (tabPanel[k].Color <> BONUS_BRICK_THOR_COLOR_1) then
+         tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_1
+      else
+         tabShape[k][numeroBrickBonusThor].Brush.Color := BONUS_BRICK_THOR_COLOR_2;
+      //Bonus Barre
+      numeroBrickBonusBarre := numeroBrickBonusThor;
+      while(numeroBrickBonusBarre = numeroBrickBonusThor) do
+      begin
+           Randomize;
+           numeroBrickBonusBarre := random(Length(tabShape[k])-1) + 1;
+      end;
+      if (tabPanel[k].Color <> BONUS_BRICK_BARRE_COLOR_1) then
+           tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_1
+      else
+           tabShape[k][numeroBrickBonusBarre].Brush.Color := BONUS_BRICK_BARRE_COLOR_2;
+      //Bonus Life
+      numeroBrickBonusLife := numeroBrickBonusThor;
+      while((numeroBrickBonusLife = numeroBrickBonusThor) OR (numeroBrickBonusLife = numeroBrickBonusBarre)) do
+      begin
+           Randomize;
+           numeroBrickBonusLife := random(Length(tabShape[k])-1) + 1;
+      end;
+      if (tabPanel[k].Color <> BONUS_BRICK_LIFE_COLOR_1) then
+           tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_1
+      else
+           tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_2;
+  end
+  else  // le panel 8 ne contient qu'une seule brique
   begin
-       Randomize;
-       numeroBrickBonusLife := random(Length(tabShape[k])-1) + 1;
+    numeroBrickBonusThor := 1;
+    numeroBrickBonusBarre := 1;
+    numeroBrickBonusLife := 1;
   end;
-  if (tabPanel[k].Color <> BONUS_BRICK_LIFE_COLOR_1) then
-       tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_1
-  else
-       tabShape[k][numeroBrickBonusLife].Brush.Color := BONUS_BRICK_LIFE_COLOR_2;
+
 
 end;
 

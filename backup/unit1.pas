@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls,
+  StdCtrls, Menus,
   //For playing sound
   FileUtil{$IFDEF WINDOWS},mmsystem{$ELSE},asyncprocess,process{$ENDIF}, ExtendedTabControls, uplaysound, StrUtils;
 
@@ -21,6 +21,14 @@ type
 
   TForm1 = class(TForm)
     EditSurname: TEdit;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    LabelCloseCommands: TLabel;
+    LabelHowToPlay: TLabel;
+    Label16: TLabel;
     LabelBonusMessage7: TLabel;
     LabelBonusThor7: TLabel;
     LabelEnd7: TLabel;
@@ -88,6 +96,7 @@ type
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
+    PanelCommands: TPanel;
     PanelScore: TPanel;
     Shape1: TShape;
     Shape10: TShape;
@@ -371,6 +380,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Image5Click(Sender: TObject);
     procedure LabelHeaderClick(Sender: TObject);
+    procedure LabelHowToPlayClick(Sender: TObject);
     procedure LabelPlayer1Click(Sender: TObject);
     procedure LabelPlayer3Click(Sender: TObject);
     procedure LabelStart1Click(Sender: TObject);
@@ -1040,7 +1050,7 @@ begin
 
 
   //meta variables
-  zKeyBlocked := False;
+  zKeyBlocked := True;
   EditSurname.Text := '';
   Timer12.Interval := LEFT_TRANSLATION_STEP_DURATION;
 
@@ -1117,6 +1127,12 @@ begin
       tabBarre[k].Left := tabBarre[k].left - jumpbar;
   end
   else
+  if (key = 'q') OR (key = 'Q') then //want to quit
+  begin
+       ShowScore();
+       FullReinitializing();
+  end
+  else
   if (key = 'z') OR (key = 'Z') then //want to start game
   begin
     if zKeyBlocked = False then
@@ -1159,6 +1175,13 @@ end;
 procedure TForm1.LabelHeaderClick(Sender: TObject);
 begin
 
+end;
+
+procedure TForm1.LabelHowToPlayClick(Sender: TObject);
+begin
+  PanelMenu.Top := MAX_TOP;
+  PanelCommands.Top := (Form1.Height div 2) - (PanelCommands.Height div 2);
+  PanelCommands.Left := (Form1.Width div 2) - (PanelCommands.Width div 2);
 end;
 
 procedure TForm1.LabelPlayer1Click(Sender: TObject);
@@ -1204,7 +1227,8 @@ end;
 
 procedure TForm1.Label15Click(Sender: TObject);
 begin
-
+  PanelCommands.Top := MAX_TOP;
+  PanelMenu.Top := (Form1.Height div 2) - (PanelScore.Height div 2);
 end;
 
 procedure TForm1.LabelRestartClick(Sender: TObject);
@@ -1951,7 +1975,7 @@ begin
       WaitAndDo(3, @ShowScore);
 
       //Attendre l'affichage du score POUR réinitialiser
-      WaitAndDo(4, @FullReinitializing);
+      WaitAndDo(3, @FullReinitializing);
 
       Timer11.Enabled := False; //On arrête de tourner la balle
       zKeyBlocked := True; //On bloque les touches

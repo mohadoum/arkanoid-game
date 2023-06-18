@@ -9,13 +9,166 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -1389
+  Font.Height = -1736
   KeyPreview = True
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   Position = poScreenCenter
   LCLVersion = '2.2.6.0'
   Scaled = False
+  object PanelMenu: TPanel
+    Left = 240
+    Height = 312
+    Top = 1000
+    Width = 839
+    ClientHeight = 312
+    ClientWidth = 839
+    Color = clPurple
+    Font.Color = clPurple
+    Font.Height = -25
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    OnClick = PanelMenuClick
+    object LabelLevel: TLabel
+      Left = 64
+      Height = 45
+      Top = 183
+      Width = 189
+      Caption = 'Game level :'
+      Font.CharSet = BALTIC_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelLevelClick
+    end
+    object LabelEasy: TLabel
+      Left = 326
+      Height = 48
+      Top = 184
+      Width = 104
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'easy'
+      Color = clHighlight
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      OnClick = LabelEasyClick
+    end
+    object LabelNormal: TLabel
+      Left = 467
+      Height = 46
+      Top = 186
+      Width = 144
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'normal'
+      Color = clGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      OnClick = LabelNormalClick
+    end
+    object LabelHard: TLabel
+      Left = 642
+      Height = 46
+      Top = 186
+      Width = 113
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'hard'
+      Color = clRed
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      OnClick = LabelHardClick
+    end
+    object EditSurname: TEdit
+      Left = 328
+      Height = 45
+      Top = 91
+      Width = 424
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -27
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      OnChange = EditSurnameChange
+      ParentFont = False
+      TabOrder = 0
+    end
+    object Label15: TLabel
+      Left = 64
+      Height = 45
+      Top = 88
+      Width = 213
+      Caption = 'Player name :'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object Label16: TLabel
+      Left = 360
+      Height = 50
+      Top = 8
+      Width = 110
+      Caption = 'MENU'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -37
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object LabelHowToPlay: TLabel
+      Left = 355
+      Height = 35
+      Top = 264
+      Width = 156
+      Caption = 'how to play ?'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -25
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelHowToPlayClick
+    end
+  end
   object Panel2: TPanel
     Left = 1
     Height = 865
@@ -1040,96 +1193,6 @@ object Form1: TForm1
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
-    end
-  end
-  object PanelMenu: TPanel
-    Left = 238
-    Height = 338
-    Top = 1250
-    Width = 911
-    ClientHeight = 338
-    ClientWidth = 911
-    Color = clGray
-    Font.Color = clPurple
-    Font.Height = -25
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 3
-    OnClick = PanelMenuClick
-    object LabelLevel: TLabel
-      Left = 366
-      Height = 55
-      Top = 8
-      Width = 183
-      Caption = 'Difficulty'
-      Font.CharSet = BALTIC_CHARSET
-      Font.Color = clYellow
-      Font.Height = -41
-      Font.Pitch = fpFixed
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentColor = False
-      ParentFont = False
-      OnClick = LabelLevelClick
-    end
-    object LabelEasy: TLabel
-      Left = 55
-      Height = 46
-      Top = 79
-      Width = 69
-      Caption = 'easy'
-      Font.Color = clLime
-      Font.Height = -34
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = LabelEasyClick
-    end
-    object LabelNormal: TLabel
-      Left = 55
-      Height = 46
-      Top = 130
-      Width = 115
-      Caption = 'normal'
-      Font.Color = clMaroon
-      Font.Height = -34
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = LabelNormalClick
-    end
-    object LabelHard: TLabel
-      Left = 55
-      Height = 46
-      Top = 180
-      Width = 73
-      Caption = 'hard'
-      Font.Color = clRed
-      Font.Height = -34
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      OnClick = LabelHardClick
-    end
-    object EditSurname: TEdit
-      Left = 650
-      Height = 43
-      Top = 80
-      Width = 231
-      OnChange = EditSurnameChange
-      TabOrder = 0
-    end
-    object Label15: TLabel
-      Left = 660
-      Height = 46
-      Top = 40
-      Width = 156
-      Caption = 'surname :'
-      Font.Color = clYellow
-      Font.Height = -34
-      Font.Style = [fsBold, fsItalic]
-      ParentColor = False
-      ParentFont = False
-      OnClick = Label15Click
     end
   end
   object Panel5: TPanel
@@ -2422,10 +2485,10 @@ object Form1: TForm1
     Left = 320
     Height = 258
     Top = 1000
-    Width = 629
+    Width = 626
     AutoSize = True
     ClientHeight = 258
-    ClientWidth = 629
+    ClientWidth = 626
     Color = clPurple
     Font.Color = clTeal
     Font.Height = -25
@@ -2436,7 +2499,7 @@ object Form1: TForm1
     object LabelFinalScore: TLabel
       Left = 1
       Height = 46
-      Top = 112
+      Top = 113
       Width = 124
       Caption = 'SCORE :'
       Font.Color = clWhite
@@ -2448,39 +2511,51 @@ object Form1: TForm1
     end
     object LabelMenu: TLabel
       Left = 21
-      Height = 46
-      Top = 211
-      Width = 88
+      Height = 45
+      Top = 212
+      Width = 86
+      Alignment = taCenter
       Caption = 'Menu'
-      Font.Color = clWhite
-      Font.Height = -34
-      Font.Style = [fsBold, fsItalic]
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
       ParentColor = False
       ParentFont = False
       OnClick = LabelMenuClick
     end
     object LabelQuit: TLabel
       Left = 541
-      Height = 46
-      Top = 211
-      Width = 87
+      Height = 45
+      Top = 212
+      Width = 84
+      Alignment = taCenter
       Caption = 'Quit '
-      Font.Color = clWhite
-      Font.Height = -34
-      Font.Style = [fsBold, fsItalic]
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
       ParentColor = False
       ParentFont = False
       OnClick = LabelQuitClick
     end
     object LabelRestart: TLabel
       Left = 271
-      Height = 46
-      Top = 211
-      Width = 116
+      Height = 45
+      Top = 212
+      Width = 111
+      Alignment = taCenter
       Caption = 'Restart'
-      Font.Color = clWhite
-      Font.Height = -34
-      Font.Style = [fsBold, fsItalic]
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
       ParentColor = False
       ParentFont = False
       OnClick = LabelRestartClick
@@ -2492,7 +2567,7 @@ object Form1: TForm1
       Width = 190
       Caption = 'Final Score'
       Font.CharSet = ANSI_CHARSET
-      Font.Color = clWhite
+      Font.Color = clYellow
       Font.Height = -37
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
@@ -2500,6 +2575,119 @@ object Form1: TForm1
       ParentColor = False
       ParentFont = False
       OnClick = LabelHeaderClick
+    end
+  end
+  object PanelCommands: TPanel
+    Left = 240
+    Height = 368
+    Top = 1000
+    Width = 839
+    ClientHeight = 368
+    ClientWidth = 839
+    Color = clPurple
+    Font.Color = clPurple
+    Font.Height = -25
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 9
+    OnClick = PanelMenuClick
+    object Label17: TLabel
+      Left = 80
+      Height = 45
+      Top = 80
+      Width = 286
+      Caption = '1. Press Z to Start '
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object Label18: TLabel
+      Left = 322
+      Height = 50
+      Top = 8
+      Width = 220
+      Caption = 'COMMANDS'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -37
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object Label19: TLabel
+      Left = 80
+      Height = 45
+      Top = 144
+      Width = 614
+      Caption = '2. Press M to move the bar on the right '
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object Label20: TLabel
+      Left = 80
+      Height = 45
+      Top = 208
+      Width = 578
+      Caption = '3. Press L to move the bar on the left '
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object Label21: TLabel
+      Left = 80
+      Height = 45
+      Top = 272
+      Width = 366
+      Caption = '4. Press Q to quit a part'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -33
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
+    end
+    object LabelCloseCommands: TLabel
+      Left = 765
+      Height = 54
+      Top = 8
+      Width = 55
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'X'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clYellow
+      Font.Height = -40
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Label15Click
     end
   end
   object Timer1: TTimer

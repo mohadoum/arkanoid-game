@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus,
+  StdCtrls, Menus, LCLType,
   //For playing sound
   FileUtil{$IFDEF WINDOWS},mmsystem{$ELSE},asyncprocess,process{$ENDIF}, ExtendedTabControls, uplaysound, StrUtils;
 
@@ -377,6 +377,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure EditSurnameChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Image5Click(Sender: TObject);
     procedure LabelHeaderClick(Sender: TObject);
@@ -578,7 +579,7 @@ const
   BONUS_BRICK_LIFE_COLOR_2 = clGreen;
   TIME_BONUS_THOR = 7;
   TIME_BONUS_BARRE = 10;
-  MIN_REQUIRED_FOR_COMMENT = 4;
+  MIN_REQUIRED_FOR_COMMENT = 6;
 
   // Defined in mmsystem
   SND_SYNC = 0;
@@ -981,6 +982,8 @@ begin
   Timer11.Enabled := FALSE;
   Timer12.Enabled := FALSE;
   Timer13.Enabled := FALSE;
+  Timer9.Enabled := FALSE;
+  Timer8.Enabled := FALSE;
 
   //bars & balls initial positions
   for iterator := 1 to NUMBER_OF_GAME_PANELS do
@@ -1050,9 +1053,12 @@ begin
 
 
   //meta variables
+  KeyPreview := True;
   zKeyBlocked := True;
   EditSurname.Text := '';
   Timer12.Interval := LEFT_TRANSLATION_STEP_DURATION;
+  limit_right := FALSE;
+  limit_left := False;
 
 
   //variables changing after Z key pressed
@@ -1111,26 +1117,32 @@ begin
 
 end;
 
-procedure TForm1.FormKeyPress(Sender: TObject; var key: char);
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if (key = 'm') OR (key = 'M') then //want to go right
+  if (key = VK_RIGHT) then //want to go right
   begin
     limit_left := False;
     if limit_right = False then
       tabBarre[k].Left := tabBarre[k].left + jumpbar;
   end
   else
-  if (key = 'l') OR (key = 'L') then //want to go to left
+  if (key = VK_LEFT) then //want to go to left
   begin
     limit_right := False;
     if limit_left = False then
       tabBarre[k].Left := tabBarre[k].left - jumpbar;
   end
-  else
+end;
+
+procedure TForm1.FormKeyPress(Sender: TObject; var key: char);
+begin
   if (key = 'q') OR (key = 'Q') then //want to quit
   begin
-       ShowScore();
-       FullReinitializing();
+       if(tabPanel[k].Top <= 100) then //Playing a part
+       begin
+           ShowScore();
+           FullReinitializing();
+       end;
   end
   else
   if (key = 'z') OR (key = 'Z') then //want to start game
@@ -1161,6 +1173,7 @@ begin
       Timer5.Enabled := True; //Check les bonus
       Timer6.Enabled := True; //Prends les chronos des bonus
       Timer7.Enabled := True; //Effets color bonus
+      Timer9.Enabled := True; //Check limit bar on move
 
     end;
   end;
@@ -1234,14 +1247,11 @@ end;
 procedure TForm1.LabelRestartClick(Sender: TObject);
 begin
   // Reinit all variables eventually touched in the precedent game
-
-
-
-
   ChooseNewBonusBricks();
   PanelScore.Top := MAX_TOP;
   TopMoveGamePanelTo(0);
   zKeyBlocked := False;
+  Timer9.Enabled := True; //Check limit for the bar
 
   (*bonusthor := False;
   stopbonusthor := True;
@@ -1282,6 +1292,7 @@ procedure TForm1.LabelNormalClick(Sender: TObject);
 begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
+  Timer9.Enabled := True; //Check limit for the bar
 
   PickNewPanelIndex(); //Choose a new k index
 
@@ -1292,7 +1303,7 @@ begin
      tabLabel[k][7].Caption := 'PLAYER: '+EditSurname.Text;
 
   jumpbal := 6;
-  jumpbar := 30;
+  jumpbar := 35;
   longbarre := 150;
   tabBarre[k].Width := longbarre;
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
@@ -1307,6 +1318,7 @@ procedure TForm1.LabelHardClick(Sender: TObject);
 begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
+  Timer9.Enabled := True; //Check limit for the bar
 
   PickNewPanelIndex(); //Choose a new k index
 
@@ -1317,7 +1329,7 @@ begin
      tabLabel[k][7].Caption := 'PLAYER: '+EditSurname.Text;
 
   jumpbal := 7;
-  jumpbar := 40;
+  jumpbar := 45;
   longbarre := 100;
   tabBarre[k].Width := longbarre;
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
@@ -1378,6 +1390,7 @@ procedure TForm1.LabelEasyClick(Sender: TObject);
 begin
   EditSurname.Enabled := False; //For preventing him to catch the FormKeyressEvent
   zKeyBlocked := False;
+  Timer9.Enabled := True; //Check limit for the bar
 
   PickNewPanelIndex(); //Choose a new k index
 
@@ -2218,24 +2231,29 @@ begin
        iT8 := 0;
 end;
 
-procedure TForm1.Timer9Timer(Sender: TObject);   //count 3 seconds to show score.
+procedure TForm1.Timer9Timer(Sender: TObject);   //check the limit of the bar move.
 begin
-  if time = 3 then
+  if (tabBarre[k].Left <= tabPanel[k].Left) then
   begin
-    PanelScore.top := 160;
-    PanelScore.left := 384;
-    if k = 1 then
-      panel2.top := 1000;
-    if k = 2 then
-      panel3.top := 1000;
-    if k = 3 then
-      panel4.top := 1000;
-    if k = 4 then
-      panel5.top := 1000;
-    if k = 5 then
-      panel6.top := 1000;
+    if (not(limit_left)) then
+    begin
+        limit_left := True;
+        tabBarre[k].Left := tabPanel[k].Left;
+    end;
+
   end;
-  time := time + 1;
+
+  if ((tabBarre[k].Left + tabBarre[k].Width) >= (tabPanel[k].Left + tabPanel[k].Width)) then
+  begin
+      if(not(limit_right)) then
+      begin
+          limit_right := True;
+          tabBarre[k].Left := tabPanel[k].Left + tabPanel[k].Width - tabBarre[k].Width;
+      end;
+
+  end;
+
+
 end;
 
 procedure TForm1.PlaySound(szSoundFilepath: string; fPlayStyle: TPlayStyle);
@@ -2403,6 +2421,7 @@ end;
 procedure TForm1.ShowScore();
 begin
      TopMoveGamePanelTo(MAX_TOP);
+     PanelScore.AutoSize := TRUE;
      LabelHeader.AutoSize := TRUE;
      LabelHeader.Caption := 'Final Score';
      LabelFinalScore.AutoSize:= TRUE;
@@ -2410,12 +2429,16 @@ begin
         LabelFinalScore.Caption := ' ' + EditSurname.Text + ', you scored ' + IntToStr(score) + '/' + IntToStr(Length(tabShape[k])) + '. '
      else
         LabelFinalScore.Caption := ' You scored ' + IntToStr(score) + '/' + IntToStr(Length(tabShape[k])) + '. ';
-     if(PanelScore.Width < 300) then
-     begin
-       PanelScore.Width := 300;
-     end;
+
      if (VictoryEvent) then
         LabelFinalScore.Caption := LabelFinalScore.Caption + 'Winner Winner Chicken!';
+
+     if(PanelScore.Width < 600) then
+     begin
+       PanelScore.AutoSize := False;
+       PanelScore.Width := 600;
+     end;
+
      PanelScore.Left := (Form1.width div 2) - (PanelScore.Width div 2);
      PanelScore.Top := (Form1.Height div 2) - (PanelScore.Height div 2);
      LabelHeader.left :=  (PanelScore.Width div 2) - (LabelHeader.Width div 2);
@@ -2428,6 +2451,8 @@ begin
      LabelRestart.Left := (PanelScore.Width div 2) - (LabelRestart.Width div 2);
      LabelQuit.Top := LabelMenu.Top;
      LabelQuit.Left := PanelScore.Width - LabelQuit.Width - (2*MARGIN);
+     if(PanelScore.AutoSize = FALSE) then
+         PanelScore.Height := LabelRestart.Top + LabelRestart.Height + MARGIN_TOP;
      zKeyBlocked:= True; //On bloque le démarrage d'une partie
 
 end;
@@ -2467,6 +2492,7 @@ begin
   Timer11.Enabled := FALSE;
   Timer12.Enabled := FALSE;
   Timer13.Enabled := FALSE;
+  Timer9.Enabled := TRUE;
 
   //k bar & ball initial positions
   tabBarre[k].Left := tabPanel[k].Left + (tabPanel[k].width div 2) - (tabBarre[k].width div 2);
@@ -2494,6 +2520,8 @@ begin
   commentHeard := FALSE;
   numberOfBricksConsecutivelyBroken := 0;
   //Other
+  limit_right := FALSE;
+  limit_left := False;
 end;
 
 //Reinit all touched object and variables after the player started a part (pressing Z);
@@ -2541,7 +2569,7 @@ begin
   BonusLifeTaken := False;
   tabShape[k][numeroBrickBonusLife].Brush.Color := initialBrickColor;//cleaning special bonus brick color
   //Another variables to add?
-
+  VictoryEvent:=False;
 end;
 
 

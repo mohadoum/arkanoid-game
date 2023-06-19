@@ -9,9 +9,10 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -1736
+  Font.Height = -2713
   KeyPreview = True
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   Position = poScreenCenter
   LCLVersion = '2.2.6.0'
@@ -2475,10 +2476,10 @@ object Form1: TForm1
       ParentFont = False
     end
     object Shape242: TShape
-      Left = 630
-      Height = 40
+      Left = 641
+      Height = 32
       Top = 296
-      Width = 70
+      Width = 37
     end
   end
   object PanelScore: TPanel
@@ -2580,7 +2581,7 @@ object Form1: TForm1
   object PanelCommands: TPanel
     Left = 240
     Height = 368
-    Top = 1000
+    Top = 1295
     Width = 839
     ClientHeight = 368
     ClientWidth = 839
@@ -2624,11 +2625,11 @@ object Form1: TForm1
       OnClick = Label15Click
     end
     object Label19: TLabel
-      Left = 80
+      Left = 82
       Height = 45
       Top = 144
-      Width = 614
-      Caption = '2. Press M to move the bar on the right '
+      Width = 613
+      Caption = '2. Press → to move the bar on the right '
       Font.CharSet = ANSI_CHARSET
       Font.Color = clYellow
       Font.Height = -33
@@ -2643,8 +2644,8 @@ object Form1: TForm1
       Left = 80
       Height = 45
       Top = 208
-      Width = 578
-      Caption = '3. Press L to move the bar on the left '
+      Width = 589
+      Caption = '3. Press ← to move the bar on the left '
       Font.CharSet = ANSI_CHARSET
       Font.Color = clYellow
       Font.Height = -33
@@ -2754,6 +2755,7 @@ object Form1: TForm1
   end
   object Timer9: TTimer
     Enabled = False
+    Interval = 13
     OnTimer = Timer9Timer
     Left = 31
     Top = 120

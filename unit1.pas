@@ -404,6 +404,7 @@ type
     procedure Timer7StopTimer(Sender: TObject);
     procedure Timer7Timer(Sender: TObject);
     procedure Timer8StartTimer(Sender: TObject);
+    procedure Timer8StopTimer(Sender: TObject);
     procedure Timer8Timer(Sender: TObject);
     procedure Timer9Timer(Sender: TObject);
     procedure PlaySound(szSoundFilepath: string; fPlayStyle: TPlayStyle);
@@ -1710,13 +1711,14 @@ begin
   iT8 := 0;
 end;
 
+procedure TForm1.Timer8StopTimer(Sender: TObject);
+begin
+     tabShape[k][1].brush.color := initialBrickColor;
+end;
+
 
 procedure TForm1.Timer8Timer(Sender: TObject); //handle changing color of the specialOneBrick
 begin
-    if(k <> 7) then
-    begin
-      Timer8.Enabled := False;
-    end;
     case iT8 of
         9: tabShape[k][1].brush.color := clgreen;
         8: tabShape[k][1].brush.color := clblue;
@@ -2024,7 +2026,7 @@ begin
   numberOfBricksConsecutivelyBroken := 0;
   //Other
   limit_right := FALSE;
-  limit_left := False;
+  limit_left := FALSE;
 end;
 
 //Reinit all touched object and variables after the player started a part (pressing Z);
@@ -2035,6 +2037,10 @@ begin
 
   //Timers
   Timer2.Enabled := FALSE;
+  if(k = 7) then
+  begin
+    Timer8.Enabled := FALSE;
+  end;
 
   //k Labels contents
   tabLabel[k][1].Caption := ''; tabLabel[k][2].Caption := ''; tabLabel[k][6].Caption := '';

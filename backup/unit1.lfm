@@ -9,7 +9,7 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -3391
+  Font.Height = -4239
   KeyPreview = True
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -202,7 +202,6 @@ object Form1: TForm1
       Top = 280
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape4ChangeBounds
     end
     object Shape5: TShape
       Left = 762
@@ -210,7 +209,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape5ChangeBounds
     end
     object Shape6: TShape
       Left = 522
@@ -225,7 +223,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape7ChangeBounds
     end
     object Shape8: TShape
       Left = 522
@@ -240,7 +237,6 @@ object Form1: TForm1
       Top = 280
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape9ChangeBounds
     end
     object Shape10: TShape
       Left = 682
@@ -325,7 +321,6 @@ object Form1: TForm1
       Top = 742
       Width = 201
       Brush.Color = clBlue
-      OnChangeBounds = Shapebarre1ChangeBounds
     end
     object Shapeball1: TShape
       Left = 631
@@ -333,7 +328,6 @@ object Form1: TForm1
       Top = 712
       Width = 32
       Brush.Color = clRed
-      OnChangeBounds = Shapeball1ChangeBounds
       Shape = stCircle
     end
     object Labelscore1: TLabel
@@ -600,7 +594,6 @@ object Form1: TForm1
       Height = 11
       Top = 121
       Width = 2858
-      OnChangeBounds = Shapelimit2ChangeBounds
     end
     object Shapebarre2: TShape
       Left = 520
@@ -892,7 +885,6 @@ object Form1: TForm1
       Height = 31
       Top = 766
       Width = 241
-      OnChangeBounds = Shapebarre3ChangeBounds
     end
     object Shapeball3: TShape
       Left = 648
@@ -1254,7 +1246,6 @@ object Form1: TForm1
       Height = 41
       Top = 404
       Width = 81
-      OnChangeBounds = Shape74ChangeBounds
     end
     object Shape75: TShape
       Left = 1168
@@ -1397,7 +1388,6 @@ object Form1: TForm1
       Height = 41
       Top = 444
       Width = 81
-      OnChangeBounds = Shape74ChangeBounds
     end
     object Shape175: TShape
       Left = 852
@@ -1416,7 +1406,6 @@ object Form1: TForm1
       Height = 41
       Top = 222
       Width = 81
-      OnChangeBounds = Shape74ChangeBounds
     end
     object Shape178: TShape
       Left = 968
@@ -1483,14 +1472,12 @@ object Form1: TForm1
       Height = 41
       Top = 222
       Width = 89
-      OnChangeBounds = Shape74ChangeBounds
     end
     object Shape189: TShape
       Left = 1168
       Height = 41
       Top = 404
       Width = 81
-      OnChangeBounds = Shape74ChangeBounds
     end
     object Shape190: TShape
       Left = 1088
@@ -1521,7 +1508,6 @@ object Form1: TForm1
       Height = 41
       Top = 404
       Width = 81
-      OnChangeBounds = Shape74ChangeBounds
     end
     object LabelEnd4: TLabel
       Left = 1875
@@ -1563,7 +1549,6 @@ object Form1: TForm1
       Height = 41
       Top = 320
       Width = 81
-      OnChangeBounds = Shape81ChangeBounds
     end
     object Shape82: TShape
       Left = 88
@@ -2045,7 +2030,6 @@ object Form1: TForm1
       Height = 31
       Top = 766
       Width = 241
-      OnChangeBounds = Shapebarre3ChangeBounds
     end
     object Shapeball6: TShape
       Left = 648
@@ -2322,7 +2306,6 @@ object Form1: TForm1
       Height = 31
       Top = 766
       Width = 241
-      OnChangeBounds = Shapebarre3ChangeBounds
     end
     object Shapeball7: TShape
       Left = 648
@@ -2680,6 +2663,7 @@ object Form1: TForm1
     Enabled = False
     OnTimer = Timer8Timer
     OnStartTimer = Timer8StartTimer
+    OnStopTimer = Timer8StopTimer
     Left = 184
     Top = 448
   end
@@ -2700,8 +2684,6 @@ object Form1: TForm1
   object Timer12: TTimer
     Enabled = False
     OnTimer = Timer12Timer
-    OnStartTimer = Timer12StartTimer
-    OnStopTimer = Timer12StopTimer
     Left = 208
     Top = 144
   end

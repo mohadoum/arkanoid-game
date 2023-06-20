@@ -385,21 +385,7 @@ type
     procedure LabelNormalClick(Sender: TObject);
     procedure LabelHardClick(Sender: TObject);
     procedure LabelEasyClick(Sender: TObject);
-    procedure Shape4ChangeBounds(Sender: TObject);
-    procedure Shape5ChangeBounds(Sender: TObject);
-    procedure Shape74ChangeBounds(Sender: TObject);
-    procedure Shape81ChangeBounds(Sender: TObject);
-    procedure Shapebarre3ChangeBounds(Sender: TObject);
-    procedure Shape6ChangeBounds(Sender: TObject);
-    procedure Shape7ChangeBounds(Sender: TObject);
-    procedure Shape9ChangeBounds(Sender: TObject);
-    procedure Shapeball1ChangeBounds(Sender: TObject);
-    procedure Shapebarre1ChangeBounds(Sender: TObject);
-    procedure Shapelimit2ChangeBounds(Sender: TObject);
-    procedure Timer10Timer(Sender: TObject);
     procedure Timer11Timer(Sender: TObject);
-    procedure Timer12StartTimer(Sender: TObject);
-    procedure Timer12StopTimer(Sender: TObject);
     procedure Timer12Timer(Sender: TObject);
     procedure Timer13Timer(Sender: TObject);
     procedure Timer1StartTimer(Sender: TObject);
@@ -418,6 +404,7 @@ type
     procedure Timer7StopTimer(Sender: TObject);
     procedure Timer7Timer(Sender: TObject);
     procedure Timer8StartTimer(Sender: TObject);
+    procedure Timer8StopTimer(Sender: TObject);
     procedure Timer8Timer(Sender: TObject);
     procedure Timer9Timer(Sender: TObject);
     procedure PlaySound(szSoundFilepath: string; fPlayStyle: TPlayStyle);
@@ -1724,13 +1711,14 @@ begin
   iT8 := 0;
 end;
 
+procedure TForm1.Timer8StopTimer(Sender: TObject);
+begin
+     tabShape[k][1].brush.color := initialBrickColor;
+end;
+
 
 procedure TForm1.Timer8Timer(Sender: TObject); //handle changing color of the specialOneBrick
 begin
-    if(k <> 7) then
-    begin
-      Timer8.Enabled := False;
-    end;
     case iT8 of
         9: tabShape[k][1].brush.color := clgreen;
         8: tabShape[k][1].brush.color := clblue;
@@ -2038,7 +2026,7 @@ begin
   numberOfBricksConsecutivelyBroken := 0;
   //Other
   limit_right := FALSE;
-  limit_left := False;
+  limit_left := FALSE;
 end;
 
 //Reinit all touched object and variables after the player started a part (pressing Z);

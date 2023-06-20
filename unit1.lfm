@@ -9,7 +9,7 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -3391
+  Font.Height = -4239
   KeyPreview = True
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -2663,6 +2663,7 @@ object Form1: TForm1
     Enabled = False
     OnTimer = Timer8Timer
     OnStartTimer = Timer8StartTimer
+    OnStopTimer = Timer8StopTimer
     Left = 184
     Top = 448
   end

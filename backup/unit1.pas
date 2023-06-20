@@ -374,68 +374,17 @@ type
     Timer7: TTimer;
     Timer8: TTimer;
     Timer9: TTimer;
-    procedure Button1Click(Sender: TObject);
-    procedure EditSurnameChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: char);
-    procedure Image5Click(Sender: TObject);
-    procedure LabelHeaderClick(Sender: TObject);
     procedure LabelHowToPlayClick(Sender: TObject);
-    procedure LabelPlayer1Click(Sender: TObject);
-    procedure LabelPlayer3Click(Sender: TObject);
-    procedure LabelStart1Click(Sender: TObject);
-    procedure LabelFinalScoreClick(Sender: TObject);
-    procedure LabelBonusMessage1Click(Sender: TObject);
     procedure LabelMenuClick(Sender: TObject);
     procedure LabelQuitClick(Sender: TObject);
     procedure Label15Click(Sender: TObject);
     procedure LabelRestartClick(Sender: TObject);
-    procedure Label2MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
     procedure LabelNormalClick(Sender: TObject);
     procedure LabelHardClick(Sender: TObject);
-    procedure LabelVie4Click(Sender: TObject);
-    procedure Label65Click(Sender: TObject);
-    procedure LabelVie5Click(Sender: TObject);
-    procedure LabelEnd4Click(Sender: TObject);
-    procedure LabelBonusMessage4Click(Sender: TObject);
-    procedure LabelVie2Click(Sender: TObject);
-    procedure LabelLevelClick(Sender: TObject);
-    procedure labelVie3Click(Sender: TObject);
-    procedure LabelEnd3Click(Sender: TObject);
     procedure LabelEasyClick(Sender: TObject);
-    procedure Labelscore1Click(Sender: TObject);
-    procedure LabelVie1Click(Sender: TObject);
-    procedure LabelEnd1Click(Sender: TObject);
-    procedure LabelBonusMessage2Click(Sender: TObject);
-    procedure Labelscore3Click(Sender: TObject);
-    procedure PanelMenuClick(Sender: TObject);
-    procedure Panel2Click(Sender: TObject);
-    procedure Panel3Click(Sender: TObject);
-    procedure Panel4Click(Sender: TObject);
-    procedure Panel5Click(Sender: TObject);
-    procedure Panel6Click(Sender: TObject);
-    procedure PanelScoreClick(Sender: TObject);
-    procedure Shape13ChangeBounds(Sender: TObject);
-    procedure Shape3ChangeBounds(Sender: TObject);
-    procedure Shapeball4ChangeBounds(Sender: TObject);
-    procedure Shapeball5ChangeBounds(Sender: TObject);
-    procedure Shapebarre5ChangeBounds(Sender: TObject);
-    procedure Shape12ChangeBounds(Sender: TObject);
-    procedure Shape14ChangeBounds(Sender: TObject);
-    procedure Shape15ChangeBounds(Sender: TObject);
-    procedure Shape17ChangeBounds(Sender: TObject);
-    procedure Shape18ChangeBounds(Sender: TObject);
-    procedure Shape19ChangeBounds(Sender: TObject);
-    procedure Shape1ChangeBounds(Sender: TObject);
-    procedure Shape20ChangeBounds(Sender: TObject);
-    procedure Shape28ChangeBounds(Sender: TObject);
-    procedure Shape35ChangeBounds(Sender: TObject);
-    procedure Shape36ChangeBounds(Sender: TObject);
-    procedure Shape40ChangeBounds(Sender: TObject);
-    procedure Shape41ChangeBounds(Sender: TObject);
-    procedure Shape46ChangeBounds(Sender: TObject);
     procedure Shape4ChangeBounds(Sender: TObject);
     procedure Shape5ChangeBounds(Sender: TObject);
     procedure Shape74ChangeBounds(Sender: TObject);
@@ -497,9 +446,8 @@ type
 
 var
   Form1: TForm1;
-  up, right, limit_right, limit_left, zKeyBlocked, bonuslong, bonusvie,
-  growsize, stop: boolean;
-  playoops, BonusThorEvent, BonusThorTaken, BonusBarreEvent, BonusBarreTaken, BonusLifeEvent, BonusLifeTaken, LeftTranslated: Boolean;
+  up, right, limit_right, limit_left, zKeyBlocked : Boolean;
+  BonusThorEvent, BonusThorTaken, BonusBarreEvent, BonusBarreTaken, BonusLifeEvent, BonusLifeTaken, LeftTranslated: Boolean;
   BarTouchSoundPlayed, FallingBallSoundPlayed, FallingBallEventOccured, GameOverOccured: boolean;
   aProcedureIsWaiting, VictoryEvent, AllBricksBroken, BarTopTouched, BarTouched, commentHeard : boolean;
 
@@ -526,8 +474,8 @@ var
   tabLabel: array[1..7, 1..8] of TLabel;
   tabPositions: array[1..7, 1..2, 1..2] of integer;
   choosenSound, i, j, iT7, iT8, timeAllowedToBonusThor, numeroBrickBonusThor, timeAllowedToBonusBarre, numeroBrickBonusBarre: integer;
-  jv, a, comptvie, al, av, b, c, d, dv, k, lastChoosenPanelIndex, numeroBrickBonusLife: integer;
-  t, time, longbarre, bonusBarreLong, numberOfBricksConsecutivelyBroken: integer;
+  comptvie, k, t, lastChoosenPanelIndex, numeroBrickBonusLife: integer;
+  longbarre, bonusBarreLong, numberOfBricksConsecutivelyBroken: integer;
   score, compt, jumpbar, jumpbal, initialBallColor, initialBrickColor, initialBarreColor: integer;
 
   array10Labels: array[0..9] of TLabel;
@@ -596,11 +544,6 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //initialize variables declared at top
-
- {rewrite(fich_noms);
-  assign(fich_noms,'fnoms');
-  rewrite(fich_score);
-  assign(fich_score,'fscore');}
 
 
   setLength(s, 25);
@@ -1081,41 +1024,8 @@ begin
   commentHeard := FALSE;
   numberOfBricksConsecutivelyBroken := 0;
 
-
-
-
-  time := 0;
-  t := 0;
-
-  dv := 0;
-  playoops := False;
-  stop := True;
-  d := 0;
-  limit_left := False;
-  limit_right := False;
-  growsize := True;
-  al := 0;
-  av := 0;
-  a := 15;
-  c := 0;
-  compt := 0;
-  j := 0;
-  jv := 0;
-  bonuslong := False;
-  bonusvie := False;
-
-
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.EditSurnameChange(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
@@ -1180,15 +1090,6 @@ begin
 
 end;
 
-procedure TForm1.Image5Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelHeaderClick(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.LabelHowToPlayClick(Sender: TObject);
 begin
@@ -1197,30 +1098,6 @@ begin
   PanelCommands.Left := (Form1.Width div 2) - (PanelCommands.Width div 2);
 end;
 
-procedure TForm1.LabelPlayer1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelPlayer3Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelStart1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelFinalScoreClick(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelBonusMessage1Click(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.LabelMenuClick(Sender: TObject);
 begin
@@ -1253,40 +1130,9 @@ begin
   zKeyBlocked := False;
   Timer9.Enabled := True; //Check limit for the bar
 
-  (*bonusthor := False;
-  stopbonusthor := True;
-  dv := 0;
-  timebonusthor := 10;
-  activebonusthor := False;
-  playoops := False;
-  stop := True;
-  t := 0;
-  d := 0;
-  limit_left := False;
-  limit_right := False;
-  zKeyBlocked := False;
-  growsize := True;
-  score := 0;
-  tabLabel[k][1].Left := 270;
-  al := 0;
-  av := 0;
-  a := 15;
-  c := 0;
-  compt := 0;
-  j := 0;
-  jv := 0;
-  comptvie := 2;
-  bonuslong := False;
-  bonusvie := False;
-  tabLabel[k][6].Left := MAX_LEFT;
-  tabLabel[k][6].top := 304;   *)
 end;
 
-procedure TForm1.Label2MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: integer);
-begin
 
-end;
 
 procedure TForm1.LabelNormalClick(Sender: TObject);
 begin
@@ -1341,50 +1187,6 @@ begin
 
 end;
 
-procedure TForm1.LabelVie4Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Label65Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelVie5Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelEnd4Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelBonusMessage4Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelVie2Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelLevelClick(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.labelVie3Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelEnd3Click(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.LabelEasyClick(Sender: TObject);
 begin
@@ -1411,227 +1213,8 @@ begin
   PanelMenu.top := 1000;
 end;
 
-procedure TForm1.Labelscore1Click(Sender: TObject);
-begin
 
-end;
 
-procedure TForm1.LabelVie1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelEnd1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.LabelBonusMessage2Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Labelscore3Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.PanelMenuClick(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Panel2Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Panel3Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Panel4Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Panel5Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Panel6Click(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.PanelScoreClick(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape13ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape3ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapeball4ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapeball5ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapebarre5ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape12ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape14ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape15ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape17ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape18ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape19ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape1ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape20ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape28ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape35ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape36ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape40ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape41ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape46ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape4ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape5ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape74ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape81ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapebarre3ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape6ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape7ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shape9ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapeball1ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapebarre1ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Shapelimit2ChangeBounds(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Timer10Timer(Sender: TObject);
-begin
-  {if nwrite=0 then
-  begin
-   if EditSurname.text<>'' then
-   begin
-   write(fich_noms,EditSurname.Text);
-   close(fich_noms);
-   end;
-  end;}
-end;
 
 procedure TForm1.Timer11Timer(Sender: TObject); //on fait mouvoir la balle
 begin
@@ -1648,15 +1231,6 @@ begin
     tabBall[k].left := tabBall[k].left - jumpbal;
 end;
 
-procedure TForm1.Timer12StartTimer(Sender: TObject);
-begin
-
-end;
-
-procedure TForm1.Timer12StopTimer(Sender: TObject);
-begin
-
-end;
 
 procedure TForm1.Timer12Timer(Sender: TObject);  //For left Translation of any label
 begin
@@ -1954,7 +1528,7 @@ end;
 
 procedure TForm1.Timer4StopTimer(Sender: TObject);
 begin
-
+   VictoryEvent := False;
 end;
 
 procedure TForm1.Timer4Timer(Sender: TObject); //Gère l'événement VICTOIRE
@@ -2077,63 +1651,6 @@ begin
             tabBarre[k].Width := longbarre;
        end;
    end;
-
-
-
-  (*
-  //Affichage des durrées des bonus
-  if ((tabBarre[k].Width = 300) and (activebonusthor = True)) then
-  begin
-    tabLabel[k][1].left := 680;
-    tabLabel[k][1].Caption := 'TIME BONUS : ' + IntToStr(a) +
-      ' (long) | ' + IntToStr(timebonusthor) + ' (thor)';
-  end
-  else
-  if (tabBarre[k].Width = 300) then
-  begin
-    tabLabel[k][1].left := 680;
-    tabLabel[k][1].Caption := 'TIME BONUS : ' + IntToStr(a);
-  end
-  else
-  if (activebonusthor = True) then
-  begin
-    tabLabel[k][6].left := 680;
-    tabLabel[k][6].Caption := 'TIME BONUS : ' + IntToStr(timebonusthor);
-  end;
-
-  //BonusLong countdown
-  if tabBarre[k].Width = 300 then
-  begin
-    a := a - 1;
-
-    if a = -1 then
-    begin
-      tabBarre[k].Width := longbarre;
-      tabLabel[k][1].Caption := '';
-    end;
-  end;
-  //BonusThor countdown
-  if activebonusthor = True then
-  begin
-    timebonusthor := timebonusthor - 1;
-
-    if timebonusthor = -1 then
-    begin
-      activebonusthor := False;
-    end;
-    case timebonusthor of
-      9: tabBall[k].brush.color := clgreen;
-      8: tabBall[k].brush.color := clblue;
-      7: tabBall[k].brush.color := clyellow;
-      6: tabBall[k].brush.color := clred;
-      5: tabBall[k].brush.color := clgreen;
-      4: tabBall[k].brush.color := clred;
-      3: tabBall[k].brush.color := clblue;
-      2: tabBall[k].brush.color := clred;
-      1: tabBall[k].brush.color := clolive;
-      0: tabBall[k].brush.color := clred;
-    end;
-  end;*)
 end;
 
 procedure TForm1.Timer7StartTimer(Sender: TObject);
@@ -2451,7 +1968,8 @@ begin
      LabelRestart.Left := (PanelScore.Width div 2) - (LabelRestart.Width div 2);
      LabelQuit.Top := LabelMenu.Top;
      LabelQuit.Left := PanelScore.Width - LabelQuit.Width - (2*MARGIN);
-     PanelScore.Height := LabelRestart.Top + LabelRestart.Height + MARGIN_TOP;
+     if(PanelScore.AutoSize = FALSE) then
+         PanelScore.Height := LabelRestart.Top + LabelRestart.Height + MARGIN_TOP;
      zKeyBlocked:= True; //On bloque le démarrage d'une partie
 
 end;

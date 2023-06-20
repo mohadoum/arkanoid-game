@@ -9,7 +9,7 @@ object Form1: TForm1
   ClientWidth = 1295
   Color = clWhite
   DesignTimePPI = 120
-  Font.Height = -2713
+  Font.Height = -3391
   KeyPreview = True
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -30,7 +30,6 @@ object Form1: TForm1
     ParentColor = False
     ParentFont = False
     TabOrder = 3
-    OnClick = PanelMenuClick
     object LabelLevel: TLabel
       Left = 64
       Height = 45
@@ -45,7 +44,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic, fsUnderline]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelLevelClick
     end
     object LabelEasy: TLabel
       Left = 326
@@ -117,7 +115,6 @@ object Form1: TForm1
       Font.Height = -27
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
-      OnChange = EditSurnameChange
       ParentFont = False
       TabOrder = 0
     end
@@ -178,14 +175,12 @@ object Form1: TForm1
     ClientHeight = 865
     ClientWidth = 1296
     TabOrder = 0
-    OnClick = Panel2Click
     object Shape1: TShape
       Left = 762
       Height = 41
       Top = 280
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape1ChangeBounds
     end
     object Shape2: TShape
       Left = 442
@@ -200,7 +195,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape3ChangeBounds
     end
     object Shape4: TShape
       Left = 362
@@ -268,7 +262,6 @@ object Form1: TForm1
       Top = 320
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape13ChangeBounds
     end
     object Shape14: TShape
       Left = 442
@@ -276,7 +269,6 @@ object Form1: TForm1
       Top = 320
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape14ChangeBounds
     end
     object Shape15: TShape
       Left = 602
@@ -284,7 +276,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape15ChangeBounds
     end
     object Shape16: TShape
       Left = 522
@@ -299,7 +290,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape17ChangeBounds
     end
     object Shape18: TShape
       Left = 283
@@ -307,7 +297,6 @@ object Form1: TForm1
       Top = 240
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape18ChangeBounds
     end
     object Shape19: TShape
       Left = 922
@@ -322,7 +311,6 @@ object Form1: TForm1
       Top = 320
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape20ChangeBounds
     end
     object Shape12: TShape
       Left = 442
@@ -330,7 +318,6 @@ object Form1: TForm1
       Top = 280
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape12ChangeBounds
     end
     object Shapebarre1: TShape
       Left = 552
@@ -361,7 +348,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = Labelscore1Click
     end
     object LabelVie1: TLabel
       Left = 1074
@@ -375,7 +361,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelVie1Click
     end
     object LabelBonusMessage1: TLabel
       Left = 320
@@ -387,7 +372,6 @@ object Form1: TForm1
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelBonusMessage1Click
     end
     object Shapelimit1: TShape
       Left = 0
@@ -419,7 +403,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelPlayer1Click
     end
     object Shape123: TShape
       Left = 602
@@ -427,7 +410,6 @@ object Form1: TForm1
       Top = 320
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape20ChangeBounds
     end
     object Shape124: TShape
       Left = 522
@@ -435,7 +417,6 @@ object Form1: TForm1
       Top = 360
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape14ChangeBounds
     end
     object Shape126: TShape
       Left = 682
@@ -443,7 +424,6 @@ object Form1: TForm1
       Top = 360
       Width = 81
       Brush.Color = clGreen
-      OnChangeBounds = Shape13ChangeBounds
     end
     object Shape125: TShape
       Left = 602
@@ -470,7 +450,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelEnd1Click
     end
     object LabelStart1: TLabel
       Left = 412
@@ -482,7 +461,6 @@ object Form1: TForm1
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelStart1Click
     end
   end
   object Panel3: TPanel
@@ -497,7 +475,6 @@ object Form1: TForm1
     ParentColor = False
     ParentFont = False
     TabOrder = 1
-    OnClick = Panel3Click
     object Shape21: TShape
       Left = 125
       Height = 41
@@ -545,7 +522,6 @@ object Form1: TForm1
       Height = 41
       Top = 282
       Width = 81
-      OnChangeBounds = Shape28ChangeBounds
     end
     object Shape29: TShape
       Left = 765
@@ -588,14 +564,12 @@ object Form1: TForm1
       Height = 41
       Top = 242
       Width = 81
-      OnChangeBounds = Shape35ChangeBounds
     end
     object Shape36: TShape
       Left = 685
       Height = 41
       Top = 282
       Width = 81
-      OnChangeBounds = Shape36ChangeBounds
     end
     object Shape37: TShape
       Left = 845
@@ -620,7 +594,6 @@ object Form1: TForm1
       Height = 41
       Top = 322
       Width = 81
-      OnChangeBounds = Shape40ChangeBounds
     end
     object Shapelimit2: TShape
       Left = 0
@@ -649,7 +622,6 @@ object Form1: TForm1
       Width = 107
       Caption = 'LabelVie2'
       ParentColor = False
-      OnClick = LabelVie2Click
     end
     object Labelscore2: TLabel
       Left = 1064
@@ -665,7 +637,6 @@ object Form1: TForm1
       Top = 10
       Width = 1
       ParentColor = False
-      OnClick = LabelBonusMessage2Click
     end
     object LabelBonusThor2: TLabel
       Left = 1750
@@ -714,14 +685,12 @@ object Form1: TForm1
       Height = 41
       Top = 398
       Width = 81
-      OnChangeBounds = Shape40ChangeBounds
     end
     object Shape133: TShape
       Left = 525
       Height = 41
       Top = 358
       Width = 81
-      OnChangeBounds = Shape28ChangeBounds
     end
     object Shape134: TShape
       Left = 605
@@ -734,7 +703,6 @@ object Form1: TForm1
       Height = 41
       Top = 358
       Width = 81
-      OnChangeBounds = Shape36ChangeBounds
     end
     object Shape136: TShape
       Left = 765
@@ -799,13 +767,11 @@ object Form1: TForm1
     Color = clMaroon
     ParentColor = False
     TabOrder = 2
-    OnClick = Panel4Click
     object Shape41: TShape
       Left = 30
       Height = 41
       Top = 276
       Width = 81
-      OnChangeBounds = Shape41ChangeBounds
     end
     object Shape43: TShape
       Left = 244
@@ -830,7 +796,6 @@ object Form1: TForm1
       Height = 41
       Top = 276
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape47: TShape
       Left = 676
@@ -948,7 +913,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = labelVie3Click
     end
     object Labelscore3: TLabel
       Left = 1143
@@ -962,7 +926,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = Labelscore3Click
     end
     object LabelBonusMessage3: TLabel
       Left = 320
@@ -999,7 +962,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelPlayer3Click
     end
     object Shape141: TShape
       Left = 972
@@ -1018,7 +980,6 @@ object Form1: TForm1
       Height = 41
       Top = 276
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape144: TShape
       Left = 1104
@@ -1055,7 +1016,6 @@ object Form1: TForm1
       Height = 41
       Top = 276
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape150: TShape
       Left = 892
@@ -1086,7 +1046,6 @@ object Form1: TForm1
       Height = 41
       Top = 276
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape155: TShape
       Left = 1184
@@ -1182,7 +1141,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelEnd3Click
     end
     object LabelStart3: TLabel
       Left = 428
@@ -1207,7 +1165,6 @@ object Form1: TForm1
     Color = clBackground
     ParentColor = False
     TabOrder = 4
-    OnClick = Panel5Click
     object Shapelimit4: TShape
       Left = -6
       Height = 20
@@ -1346,7 +1303,6 @@ object Form1: TForm1
       Height = 32
       Top = 728
       Width = 31
-      OnChangeBounds = Shapeball4ChangeBounds
       Shape = stCircle
     end
     object LabelVie4: TLabel
@@ -1359,7 +1315,6 @@ object Form1: TForm1
       Font.Height = -25
       ParentColor = False
       ParentFont = False
-      OnClick = LabelVie4Click
     end
     object Labelscore4: TLabel
       Left = 1063
@@ -1392,7 +1347,6 @@ object Form1: TForm1
       Font.Height = -25
       ParentColor = False
       ParentFont = False
-      OnClick = LabelBonusMessage4Click
     end
     object LabelPlayer4: TLabel
       Left = 32
@@ -1580,7 +1534,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelEnd4Click
     end
     object LabelStart4: TLabel
       Left = 424
@@ -1605,7 +1558,6 @@ object Form1: TForm1
     Color = clGreen
     ParentColor = False
     TabOrder = 5
-    OnClick = Panel6Click
     object Shape81: TShape
       Left = 88
       Height = 41
@@ -1870,14 +1822,12 @@ object Form1: TForm1
       Height = 31
       Top = 765
       Width = 241
-      OnChangeBounds = Shapebarre5ChangeBounds
     end
     object Shapeball5: TShape
       Left = 642
       Height = 32
       Top = 736
       Width = 31
-      OnChangeBounds = Shapeball5ChangeBounds
       Shape = stCircle
     end
     object Labelscore5: TLabel
@@ -1922,7 +1872,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelVie5Click
     end
     object LabelPlayer5: TLabel
       Left = 31
@@ -1971,13 +1920,11 @@ object Form1: TForm1
     Color = clPurple
     ParentColor = False
     TabOrder = 6
-    OnClick = Panel4Click
     object Shape195: TShape
       Left = 847
       Height = 41
       Top = 232
       Width = 76
-      OnChangeBounds = Shape41ChangeBounds
     end
     object Shape196: TShape
       Left = 180
@@ -2002,7 +1949,6 @@ object Form1: TForm1
       Height = 41
       Top = 260
       Width = 47
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape200: TShape
       Left = 746
@@ -2120,7 +2066,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = labelVie3Click
     end
     object Labelscore6: TLabel
       Left = 1143
@@ -2134,7 +2079,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = Labelscore3Click
     end
     object LabelBonusMessage6: TLabel
       Left = 320
@@ -2171,7 +2115,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelPlayer3Click
     end
     object Shape215: TShape
       Left = 970
@@ -2190,7 +2133,6 @@ object Form1: TForm1
       Height = 41
       Top = 344
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape218: TShape
       Left = 1101
@@ -2227,7 +2169,6 @@ object Form1: TForm1
       Height = 41
       Top = 192
       Width = 102
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape224: TShape
       Left = 890
@@ -2258,7 +2199,6 @@ object Form1: TForm1
       Height = 41
       Top = 272
       Width = 81
-      OnChangeBounds = Shape46ChangeBounds
     end
     object Shape229: TShape
       Left = 1181
@@ -2348,7 +2288,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelEnd3Click
     end
     object LabelStart6: TLabel
       Left = 432
@@ -2372,7 +2311,6 @@ object Form1: TForm1
     Color = clOlive
     ParentColor = False
     TabOrder = 8
-    OnClick = Panel4Click
     object Shapelimit7: TShape
       Left = 0
       Height = 15
@@ -2405,7 +2343,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = labelVie3Click
     end
     object Labelscore7: TLabel
       Left = 1143
@@ -2419,7 +2356,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = Labelscore3Click
     end
     object LabelBonusMessage7: TLabel
       Left = 320
@@ -2450,7 +2386,6 @@ object Form1: TForm1
       Font.Quality = fqDraft
       ParentColor = False
       ParentFont = False
-      OnClick = LabelPlayer3Click
     end
     object LabelEnd7: TLabel
       Left = 1875
@@ -2462,7 +2397,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelEnd3Click
     end
     object LabelStart7: TLabel
       Left = 432
@@ -2496,7 +2430,6 @@ object Form1: TForm1
     ParentColor = False
     ParentFont = False
     TabOrder = 7
-    OnClick = PanelScoreClick
     object LabelFinalScore: TLabel
       Left = 1
       Height = 46
@@ -2508,7 +2441,6 @@ object Form1: TForm1
       Font.Style = [fsBold, fsItalic]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelFinalScoreClick
     end
     object LabelMenu: TLabel
       Left = 21
@@ -2575,7 +2507,6 @@ object Form1: TForm1
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
-      OnClick = LabelHeaderClick
     end
   end
   object PanelCommands: TPanel
@@ -2591,7 +2522,6 @@ object Form1: TForm1
     ParentColor = False
     ParentFont = False
     TabOrder = 9
-    OnClick = PanelMenuClick
     object Label17: TLabel
       Left = 80
       Height = 45
@@ -2759,12 +2689,6 @@ object Form1: TForm1
     OnTimer = Timer9Timer
     Left = 31
     Top = 120
-  end
-  object Timer10: TTimer
-    Enabled = False
-    OnTimer = Timer10Timer
-    Left = 130
-    Top = 59
   end
   object Timer11: TTimer
     Enabled = False
